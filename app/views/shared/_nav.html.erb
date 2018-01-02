@@ -1,0 +1,22 @@
+<nav class="navbar  sticky-top navbar-expand-lg  navbar-light bg-light ">
+  <%=link_to "Home",home_index_path,class: "navbar-brand"%>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+  <ul class=" navbar-nav navbar-right">
+	  <li class="nav-item">
+	  	<%if user_signed_in?%>
+	  			<%=link_to "Logout",destroy_user_session_path,method: :delete ,class: "btn btn-danger" %>
+	    <%else%>
+	    	<%=link_to "Login",new_user_session_path,class: "btn btn-success"%>    		
+	    <%end%>
+	  </li>
+	</ul>
+</nav>
