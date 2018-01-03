@@ -22,22 +22,23 @@ class HomeController < ApplicationController
   end
 
   def create
-    respond_to |format|
-      format.html
+    user_data=home_params
+    pdf=PdfGenerator.new(user_data)
+    file_path = new_file_path
+    pdf.render_file file_path
+    @document_file=File.open(file_path)
+    @document_model=UserDocument.new
+    @document_model.document=@document_file
+    @document_model.user_id=current_user.id
+    if @document_model.save
+      flash[:notice]="Document's pdf successfully created"
+    else
+      flash[:alert]="pdf is not created"
+    end
+    respond_to do |format|
+      format.html {redirect_to home_index_path}
       format.pdf do 
-        user_data=home_params
-        pdf=PdfGenerator.new(user_data)
-        file_path = new_file_path
-        pdf.render_file file_path
-        @document_file=File.open(file_path)
-        @document_model=UserDocument.new
-        @document_model.document=@document_file
-        @document_model.user_id=current_user.id
-        if @document_model.save
-          flash[:notice]="Document's pdf successfully created"
-        else
-          flash[:alert]="pdf is not created"
-        end
+        
         send_data(pdf, filename: 'new-document.pdf', type: 'application/pdf')
       end 
     end
