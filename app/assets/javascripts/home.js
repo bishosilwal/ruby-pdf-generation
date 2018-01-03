@@ -7,6 +7,5 @@ function insRow(){
 	tableRow.prepend(newRow);
 	var totalRow= parseInt($("#rowcount").val());
 	$("#rowcount").val(totalRow+1);
-	//$("#user-document-table tbody:last").append("<tr class='form-group'><td><input type='text' name='title3' id="" class='form-control'/></td><td><textarea rows='3' cols='10' name='content3' class='form-control'/></td></tr>")
-
+	
 }
