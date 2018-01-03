@@ -22,25 +22,29 @@
 							<td><%=document.document_file_size%></td>
 							<td>
 								<%=link_to "Delete",home_path(document.id),method: :delete,data: {confirm: "Are you sure want to delte file?"},class: "btn btn-danger"%>
-								<%#=link_to "view",home_path(document.id),class: "btn btn-info"%>
-								<button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewPdf">View</button>
-								<div id="viewPdf" class="modal fade" role="dialog">
-								  <div class="modal-dialog">
+								<button type="button" class="btn btn-primary" data-id=<%=document.id%> data-toggle="modal" data-target="#viewPdf">
+								  View
+								</button>
 
-								    <!-- Modal content-->
+								<!-- Modal -->
+								<div class="modal fade" id="viewPdf" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
 								      <div class="modal-header">
-								        <button type="button" class="close" data-dismiss="modal">&times;</button>
-								        <h4 class="modal-title">Document pdf</h4>
+								        <h5 class="modal-title" id="exampleModalLabel">Your Document</h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
 								      </div>
 								      <div class="modal-body">
-								      	<object type="application/pdf" data=<%=home_path(document.id)%> width="100%" height="500" style="height: 85vh;">No Support</object>
+								     
+								        <object type="application/pdf" id="pdfObject" data="" width="100%" height="500" style="height: 85vh;">No Support</object>
 								      </div>
 								      <div class="modal-footer">
-								        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								      </div>
 								    </div>
-								 	</div>
+									</div>
 								</div>
 							</td>
 						</tr>
@@ -62,6 +66,4 @@
 	<h3>Please signed in to create document or view your documents</h3>
 <%end%>
 
-
-
-
+								
