@@ -17,6 +17,7 @@ class ShareController < ApplicationController
           receipt_id: id,
           doc_id: share_params[:doc_id]
           )
+      NotificationMailer.notify_user(current_user,id).deliver_now
     end
     redirect_to home_index_path,notice: "Document share successfully"
   end
@@ -37,3 +38,4 @@ class ShareController < ApplicationController
   end
 
 end
+

@@ -1,7 +1,7 @@
 <h1>User's Home</h1>
 
 <%if user_signed_in?%>
-	<%= link_to "New Document",new_home_path%>
+	<%= link_to "New Document",new_home_path,class: "badge badge-primary"%>
 	<%if @user_documents%>
 		<div class="row">
 			

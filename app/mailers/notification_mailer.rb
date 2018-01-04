@@ -1,8 +1,8 @@
 class NotificationMailer < ApplicationMailer
 
-	def notify_user(userOwner,userReceipt)
+	def notify_user(userOwner,userReceiptId)
 		@userOwner=userOwner
-		@userReceipt=userReceipt
+		@userReceipt=User.find(userReceiptId)
 		mail(to: @userReceipt.email ,
 				subject: "#{@userOwner.email} share document with you ",
 				template_path: "notification_mailer",
