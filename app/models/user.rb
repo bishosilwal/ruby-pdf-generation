@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :user_documents
   #scope :document ,->{joins(:user_documents).where(user_documents: {user: user})}
+
+  
 end

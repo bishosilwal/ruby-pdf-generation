@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171231090610) do
+ActiveRecord::Schema.define(version: 20180103115507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "document_shares", force: :cascade do |t|
+    t.bigint "owner_id"
+    t.bigint "receipt_id"
+    t.bigint "doc_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "user_documents", force: :cascade do |t|
     t.string "document_file_name"

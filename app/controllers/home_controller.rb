@@ -4,16 +4,17 @@ class HomeController < ApplicationController
   def index
     if user_document
         @user_documents=all_documents
+        @shared_documents=DocumentShare.shared_documents(current_user.id)
     end
+    if user_signed_in?
+      @access_documents=DocumentShare.access_documents(current_user.id)
+    end
+    
   end
 
   def show
     @document=UserDocument.find(params[:id])
     pdf_filename=file_path+@document.document_file_name 
-    # respond_to |format|
-    #   format.html
-    #   format.pdf {render pdf:  }
-    # end
     send_file(pdf_filename, :filename => "your_document.pdf", :disposition => 'inline', :type => "application/pdf")
     
   end
@@ -51,4 +52,26 @@ class HomeController < ApplicationController
     @document.destroy
     redirect_to home_index_path ,notice: "Document successfully deleted.."
   end
+
+  # def share
+  #   @emails=share_params[:users_email]
+  #   @emails=@emails.split(',')
+  #   @users_id=[]
+  #   @emails.each do |email|
+  #     id = user_id(email)
+  #     @users_id<< id unless id.nil? 
+  #   end
+
+  #   @users_id.each do |id|
+  #     DocumentShare.create!(
+  #         owner_id: current_user.id,
+  #         receipt_id: id,
+  #         doc_id: share_params[:doc_id]
+  #         )
+  #   end
+  #   redirect_to home_index_path,notice: "Document share successfully"
+  # end
+
+
+  
 end

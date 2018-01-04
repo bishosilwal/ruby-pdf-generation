@@ -22,4 +22,6 @@ module HomeHelper
   def file_path
   	"#{Rails.root}/public/attachments/"
   end
+
+ 
 end

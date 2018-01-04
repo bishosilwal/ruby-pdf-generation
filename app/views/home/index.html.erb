@@ -4,9 +4,8 @@
 	<%= link_to "New Document",new_home_path%>
 	<%if @user_documents%>
 		<div class="row">
-			<div class="col-sm-2">
-			</div>
-			<div class="col-sm-8">
+			
+			<div class="col-md-6">
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
@@ -25,35 +24,87 @@
 								<button type="button" class="btn btn-primary" data-id=<%=document.id%> data-toggle="modal" data-target="#viewPdf">
 								  View
 								</button>
-
-								<!-- Modal -->
-								<div class="modal fade" id="viewPdf" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								  <div class="modal-dialog" role="document">
-								    <div class="modal-content">
-								      <div class="modal-header">
-								        <h5 class="modal-title" id="exampleModalLabel">Your Document</h5>
-								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								          <span aria-hidden="true">&times;</span>
-								        </button>
-								      </div>
-								      <div class="modal-body">
-								     
-								        <object type="application/pdf" id="pdfObject" data="" width="100%" height="500" style="height: 85vh;">No Support</object>
-								      </div>
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								      </div>
-								    </div>
-									</div>
-								</div>
+								<button type="button" class="btn btn-info" data-id=<%=document.id%> data-toggle="modal" data-target="#sharePdf">
+								  Share
+								</button>
+									
+								
 							</td>
 						</tr>
 						<%end%>
 					</tbody>
 				</table>
 			</div>
-			<div class="col-sm-2">
-				
+
+			<div class="col-md-6">
+				<h3>Access Documents</h3> 
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>Document Name</th>
+							<th> Owner</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%if @access_documents.any?%>
+							<%@access_documents.each do |accessDocuments|%>
+								<tr>
+									<td><%=UserDocument.find(accessDocuments.doc_id).document_file_name%></td>
+									<td><%=User.find(accessDocuments.owner_id).email%></td>
+									<td>
+										<button type="button" class="btn btn-primary" data-id=<%=accessDocuments.doc_id%> data-toggle="modal" data-target="#viewPdf">
+								  	View
+										</button>
+										<%=link_to "UnAccess",share_path(accessDocuments),method: :delete,data: {confirm: "Are you sure want to unaccess Document?"},class: "btn btn-secondary"%>
+
+									</td>
+								</tr>
+							<%end%>
+							
+						<%else%>
+							<tr>
+								<td colspan="3">You don't have access documents!!</td>
+							</tr>
+						<%end%>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<h3> Shared Documents</h3>
+				<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>Document Name</th>
+							<th>Receiver</th>
+							<th>Action</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<%if @shared_documents.any?%>
+							<%@shared_documents.each do |sharedDocumets|%>
+								<tr>
+									<td><%=UserDocument.find(sharedDocumets.doc_id).document_file_name%></td>
+									<td><%=User.find(sharedDocumets.receipt_id).email%></td>
+										<td>
+											<button type="button" class="btn btn-primary" data-id=<%=sharedDocumets.doc_id%> data-toggle="modal" data-target="#viewPdf">
+									  	View
+											</button>
+											<%=link_to "Unshare",share_path(sharedDocumets),method: :delete,data: {confirm: "Are you sure want to Unshare Document?"},class: "btn btn-secondary"%>
+										</td>
+								</tr>
+							<%end%>
+						<%else%>
+							<tr>
+								<td colspan="3">You haven't share documents yet!!</td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
 			</div>
 
 		</div>
@@ -66,4 +117,52 @@
 	<h3>Please signed in to create document or view your documents</h3>
 <%end%>
 
-								
+<div class="modal fade" id="viewPdf" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Your Document</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     		<div class="view-pdf">
+     			 <object type="application/pdf" id="pdfObject" data="" width="100%" height="500" style="height: 85vh;">No Support</object>
+     		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+	</div>
+</div>	
+
+<div class="modal fade" id="sharePdf" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Share Document</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="user-share-form">
+      		<div class="form-group">
+
+						<%= form_tag(controller: "share" ,action: "create", method: "post") do %>
+						  <%= label_tag(:user_email,"User Email:") %>
+						  <%= text_field_tag(:users_email,nil,class: "form-control") %><br>
+						  <%=hidden_field_tag(:doc_id,nil,id: "hiddenDocId")%>
+						  <%= submit_tag("Share",class: "btn btn-info") %>
+						<% end %>
+	      	</div>
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+	</div>
+</div>		
