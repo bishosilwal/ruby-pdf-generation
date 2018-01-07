@@ -28,4 +28,10 @@ $(document).ready(function($) {
 		$(this).find('.modal-body,.user-share-form,#hiddenDocId').val(docId)
 
 	});
+	$('.js-example-basic-multiple').select2({
+		placeholder: 'Select an email'
+
+	});
 });
+
+

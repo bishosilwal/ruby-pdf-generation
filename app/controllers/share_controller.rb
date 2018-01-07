@@ -3,21 +3,14 @@ class ShareController < ApplicationController
 	before_action :authenticate_user!
   def create
 
-  	@emails=share_params[:users_email]
-    @emails=@emails.split(',')
-    @users_id=[]
-    @emails.each do |email|
-      id = user_id(email)
-      @users_id<< id unless id.nil? 
-    end
-
-    @users_id.each do |id|
+  	@ids=share_params[:users_id]
+    @ids.each do |id|
       DocumentShare.create!(
           owner_id: current_user.id,
           receipt_id: id,
           doc_id: share_params[:doc_id]
           )
-      NotificationMailer.notify_user(current_user,id).deliver_now
+      NotificationMailer.notify_user(current_user,id,share_params[:doc_id]).deliver_now
     end
     redirect_to home_index_path,notice: "Document share successfully"
   end
@@ -33,8 +26,19 @@ class ShareController < ApplicationController
   		redirect_to root_path
   end
 
+  def show
+    @document=DocumentShare.find_by(doc_id: params[:id])
+    if current_user.id == @document.receipt_id
+        pdf=pdf_file(@document.doc_id)
+
+        send_file(pdf,:filename=> "new-document.pdf",:disposition=>"inline",:type=> "application/pdf")
+    else
+      redirect_to home_index_path
+    end
+  end
+
   def share_params
-    params.permit(:users_email,:doc_id)
+    params.permit(:utf8, :method, :authenticity_token, :commit,{:users_id=> []},:doc_id)
   end
 
 end

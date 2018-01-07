@@ -9,7 +9,8 @@
       	<%=@userOwner.email%> just share a document to you.
     </p>
     <p>
-    	<h3>Please check you profile to view document</h3>
+    	<h3>Please check link below to view the document</h3>
+      <%=link_to "view document",share_url(@docId)%>
     </p>
   </body>
 </html>

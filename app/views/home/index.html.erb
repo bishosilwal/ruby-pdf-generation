@@ -1,12 +1,11 @@
-<h1>User's Home</h1>
-
+<h3>User's Home</h3>
 <%if user_signed_in?%>
 	<%= link_to "New Document",new_home_path,class: "badge badge-primary"%>
 	<%if @user_documents%>
-		<div class="row">
+		<div class="row ">
 			
-			<div class="col-md-6">
-				<table class="table table-bordered table-hover">
+			<div class="col-md-6 ">
+				<table class="table table-bordered table-hover ">
 					<thead>
 						<tr>
 							<th>Documents name</th>
@@ -16,15 +15,15 @@
 					</thead>
 					<tbody>
 						<%@user_documents.each do |document|%>
-						<tr>
+						<tr class="">
 							<td><%=document.document_file_name%></td>
 							<td><%=document.document_file_size%></td>
 							<td>
-								<%=link_to "Delete",home_path(document.id),method: :delete,data: {confirm: "Are you sure want to delte file?"},class: "btn btn-danger"%>
+								<%=link_to "Delete",home_path(document.id),method: :delete,data: {confirm: "Are you sure want to delte file?"},class: "btn btn-outline-danger"%>
 								<button type="button" class="btn btn-primary" data-id=<%=document.id%> data-toggle="modal" data-target="#viewPdf">
 								  View
 								</button>
-								<button type="button" class="btn btn-info" data-id=<%=document.id%> data-toggle="modal" data-target="#sharePdf">
+								<button type="button" class="btn btn-success" data-id=<%=document.id%> data-toggle="modal" data-target="#sharePdf">
 								  Share
 								</button>
 									
@@ -37,7 +36,7 @@
 			</div>
 
 			<div class="col-md-6">
-				<h3>Share with me</h3> 
+				<h4>Shared with me</h4> 
 				<table class="table table-hover table-bordered">
 					<thead>
 						<tr>
@@ -74,7 +73,7 @@
 
 		<div class="row">
 			<div class="col-md-6">
-				<h3> Share by Me</h3>
+				<h4> Shared by Me</h4>
 				<table class="table table-hover table-bordered">
 					<thead>
 						<tr>
@@ -153,7 +152,14 @@
 
 						<%= form_tag(controller: "share" ,action: "create", method: "post") do %>
 						  <%= label_tag(:user_email,"User Email:") %>
-						  <%= text_field_tag(:users_email,nil,class: "form-control") %><br>
+
+						  <%= select_tag(:users_id,
+							  						 options_for_select(User.all.map { |u| [u.email, u.id]}),
+							               class: 'js-example-basic-multiple',
+							               	multiple: true, style:"width: 75%")
+							%>
+						
+						  <br>
 						  <%=hidden_field_tag(:doc_id,nil,id: "hiddenDocId")%>
 						  <%= submit_tag("Share",class: "btn btn-info") %>
 						<% end %>
