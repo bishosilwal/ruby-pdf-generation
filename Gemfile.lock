@@ -60,10 +60,6 @@ GEM
       xpath (>= 2.0, < 4.0)
     childprocess (0.8.0)
       ffi (~> 1.0, >= 1.0.11)
-    chosen-rails (1.8.2)
-      coffee-rails (>= 3.2)
-      railties (>= 3.0)
-      sass-rails (>= 3.2)
     climate_control (0.2.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
@@ -74,6 +70,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
+    commonjs (0.2.7)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
     devise (4.4.0)
@@ -85,6 +82,10 @@ GEM
     erubi (1.7.0)
     execjs (2.7.0)
     ffi (1.9.18)
+    font-awesome-sass (4.7.0)
+      sass (>= 3.2)
+    font-roboto-rails (0.0.3)
+      less
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (0.9.1)
@@ -96,6 +97,20 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    kaminari (1.1.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
+      actionview
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
+      activerecord
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
+    less (2.6.0)
+      commonjs (~> 0.2.7)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -227,11 +242,13 @@ DEPENDENCIES
   bootstrap (~> 4.0.0.beta3)
   byebug
   capybara (~> 2.13)
-  chosen-rails
   coffee-rails (~> 4.2)
   devise
+  font-awesome-sass
+  font-roboto-rails
   jbuilder (~> 2.5)
   jquery-rails
+  kaminari (~> 1.1, >= 1.1.1)
   listen (>= 3.0.5, < 3.2)
   paperclip (~> 5.0.0)
   pg (~> 0.18)
@@ -249,4 +266,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
