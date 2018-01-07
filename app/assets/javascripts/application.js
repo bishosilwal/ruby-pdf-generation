@@ -15,3 +15,4 @@
 //= require_tree .
 //= require popper
 //= require bootstrap
+//= require js/select2.min

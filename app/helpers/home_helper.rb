@@ -23,5 +23,10 @@ module HomeHelper
   	"#{Rails.root}/public/attachments/"
   end
 
+  def pdf_file(id)
+    document=UserDocument.find(id)
+    pdf_file_path=file_path+document.document_file_name 
+  end
+
  
 end

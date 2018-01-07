@@ -13,9 +13,8 @@ class HomeController < ApplicationController
   end
 
   def show
-    @document=UserDocument.find(params[:id])
-    pdf_filename=file_path+@document.document_file_name 
-    send_file(pdf_filename, :filename => "your_document.pdf", :disposition => 'inline', :type => "application/pdf")
+    pdf=pdf_file(params[:id])
+    send_file(pdf, :filename => "your_document.pdf", :disposition => 'inline', :type => "application/pdf")
     
   end
 
