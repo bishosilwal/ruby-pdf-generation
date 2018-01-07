@@ -3,11 +3,11 @@ class HomeController < ApplicationController
   before_action :authenticate_user!,except: [:index]
   def index
     if user_document
-        @user_documents=all_documents
-        @shared_documents=DocumentShare.shared_documents(current_user.id)
+        @user_documents=all_documents.page(params[:page]).per(4)
+        @shared_documents=DocumentShare.shared_documents(current_user.id).page(params[:page]).per(4)
     end
     if user_signed_in?
-      @access_documents=DocumentShare.access_documents(current_user.id)
+      @access_documents=DocumentShare.access_documents(current_user.id).page(params[:page]).per(4)
     end
     
   end
@@ -49,27 +49,12 @@ class HomeController < ApplicationController
     file=file_path+@document.document_file_name
     File.delete(file) if File.exist?(file)
     @document.destroy
+    @document_share=DocumentShare.find_by(doc_id: params[:id])
+    if @document_share
+      @document_share.destroy
+    end
     redirect_to home_index_path ,notice: "Document successfully deleted.."
   end
-
-  # def share
-  #   @emails=share_params[:users_email]
-  #   @emails=@emails.split(',')
-  #   @users_id=[]
-  #   @emails.each do |email|
-  #     id = user_id(email)
-  #     @users_id<< id unless id.nil? 
-  #   end
-
-  #   @users_id.each do |id|
-  #     DocumentShare.create!(
-  #         owner_id: current_user.id,
-  #         receipt_id: id,
-  #         doc_id: share_params[:doc_id]
-  #         )
-  #   end
-  #   redirect_to home_index_path,notice: "Document share successfully"
-  # end
 
 
   
