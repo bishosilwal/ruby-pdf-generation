@@ -1,8 +1,6 @@
 
 	<h3>User's Home</h3>
 	<%if user_signed_in?%>
-		<%= link_to "New Document",new_home_path,class: "badge badge-primary"%>
-		
 			<%if @user_documents%>
 				<div class="">
 						<table class="table table-bordered table-hover ">
