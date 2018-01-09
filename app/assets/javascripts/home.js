@@ -11,8 +11,10 @@ function insRow(){
 }
 
 
-$(document).ready(function($) {
-	$('#viewPdf').on('show.bs.modal', function (event) {
+$(document).ready(function() {
+
+	$(document).on('show.bs.modal', '#viewPdf', function(event) {
+	// $('#viewPdf').on('show.bs.modal', function (event) {
 	  var button = $(event.relatedTarget) // Button that triggered the modal
 	  var docId = button.data('id') // Extract info from data-* attributes
 
@@ -22,15 +24,21 @@ $(document).ready(function($) {
 
 
 	});	
+			
 	
+	$('.js-example-basic-multiple').select2({
+		placeholder: 'Select an email'
+
+	});
+
+	$('#document-save').on('click',function(event){
+		$('.user-editor').froalaEditor('save.save');
+	});
+
 	$('#sharePdf').on('show.bs.modal',function(event){
 		var button =$(event.relatedTarget)
 		var docId=button.data('id')
 		$(this).find('.modal-body,.user-share-form,#hiddenDocId').val(docId)
-
-	});
-	$('.js-example-basic-multiple').select2({
-		placeholder: 'Select an email'
 
 	});
 });

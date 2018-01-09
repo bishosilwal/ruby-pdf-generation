@@ -1,5 +1,6 @@
 {
   "name": "user-pdf",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+  }
 }
