@@ -1,0 +1,42 @@
+<%if user_signed_in?%>
+	<h4> Shared by Me</h4>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>Document Name</th>
+				<th>Receiver</th>
+				<th>Action</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<%if @shared_documents.any?%>
+				<%@shared_documents.each do |sharedDocumets|%>
+					<tr>
+						<td><%=UserDocument.find(sharedDocumets.doc_id).document_file_name%></td>
+						<td><%=User.find(sharedDocumets.receipt_id).email%></td>
+							<td>
+								<button type="button" class="btn btn-primary" data-id=<%=sharedDocumets.doc_id%> data-toggle="modal" data-target="#viewPdf">
+						  	View
+						  	<i class="fa fa-eye "></i>
+								</button>
+
+								<%=link_to share_path(sharedDocumets),method: :delete,data: {confirm: "Are you sure want to Unshare Document?"} do  %>
+									<span class="btn btn-secondary">
+										<i class="fa fa-share-square-o"></i>UnShare	
+									</span>
+								<%end%>
+							</td>
+					</tr>
+				<%end%>
+			<%else%>
+				<tr>
+					<td colspan="3">You haven't share documents yet!!</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<%=paginate @shared_documents,param_name: :share_documents%>
+<%end%>
+
+<%=render "shared/viewpdf" %>

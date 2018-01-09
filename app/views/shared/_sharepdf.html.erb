@@ -1,0 +1,37 @@
+
+	<div class="modal fade" id="sharePdf" tabindex="-1" role="dialog" aria-labelledby="viewPdfLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="viewPdfLabel">Share Document</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="user-share-form">
+	      		<div class="form-group">
+
+							<%= form_tag(controller: "share" ,action: "create", method: "post") do %>
+							  <%= label_tag(:user_email,"User Email:") %>
+
+							  <%= select_tag(:users_id,
+								  						 options_for_select(User.all.map { |u| [u.email, u.id]}),
+								               class: 'js-example-basic-multiple',
+								               	multiple: true, style:"width: 100%;")
+								%>
+							
+							  <br>
+							  <%=hidden_field_tag(:doc_id,nil,id: "hiddenDocId")%>
+							  <%= submit_tag("Share",class: "btn btn-info") %>
+							<% end %>
+		      	</div>
+	      	</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+		</div>
+	</div>		
+	

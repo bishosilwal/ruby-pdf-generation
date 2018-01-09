@@ -1,0 +1,42 @@
+<%if user_signed_in?%>
+	<h4>Shared with me</h4> 
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th>Document Name</th>
+				<th> Owner</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%if @access_documents.any?%>
+				<%@access_documents.each do |accessDocuments|%>
+					<tr>
+						<td><%=UserDocument.find(accessDocuments.doc_id).document_file_name%></td>
+						<td><%=User.find(accessDocuments.owner_id).email%></td>
+						<td>
+							<button type="button" class="btn btn-primary" data-id=<%=accessDocuments.doc_id%> data-toggle="modal" data-target="#viewPdf">
+					  	View
+					  	<i class="fa fa-eye "></i>
+							</button>
+							<%=link_to share_path(accessDocuments),method: :delete,data: {confirm: "Are you sure want to unaccess Document?"} do%>
+								<span class="btn btn-secondary">
+									<i class="fa fa-chain-broken"></i>UnAccess
+								</span>
+							<%end%>
+
+						</td>
+					</tr>
+				<%end%>
+				
+			<%else%>
+				<tr>
+					<td colspan="3">You don't have access documents!!</td>
+				</tr>
+			<%end%>
+		</tbody>
+	</table>
+	<%=paginate @access_documents,param_name: :access_documents%>
+
+<%end%>
+<%=render "shared/viewpdf" %>

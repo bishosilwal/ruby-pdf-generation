@@ -4,13 +4,7 @@ class HomeController < ApplicationController
   def index
     if user_document
         @user_documents=all_documents.page(params[:user_documents]).per(5)
-        @shared_documents=DocumentShare.shared_documents(current_user.id).page(params[:share_documents]).per(5)
     end
-    if user_signed_in?
-      @access_documents=DocumentShare.access_documents(current_user.id).page(params[:access_documents]).per(5)
-    end
-
-   
   end
 
   def show
@@ -57,6 +51,8 @@ class HomeController < ApplicationController
     end
     redirect_to home_index_path ,notice: "Document successfully deleted.."
   end
+
+ 
 
 
   

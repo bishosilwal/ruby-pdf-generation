@@ -23,7 +23,7 @@ class ShareController < ApplicationController
   		flash[:alert]="Document is not unshared successfully"
 
   	end
-  		redirect_to root_path
+  		redirect_to sharedbyme_path
   end
 
   def show
@@ -34,6 +34,19 @@ class ShareController < ApplicationController
         send_file(pdf,:filename=> "new-document.pdf",:disposition=>"inline",:type=> "application/pdf")
     else
       redirect_to home_index_path
+    end
+  end
+
+   def sharedbyme
+    if user_document
+      @shared_documents=DocumentShare.shared_documents(current_user.id).page(params[:share_documents]).per(5)
+    end
+
+  end
+
+  def sharedwithme
+    if user_signed_in?
+      @access_documents=DocumentShare.access_documents(current_user.id).page(params[:access_documents]).per(5)
     end
   end
 
