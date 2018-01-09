@@ -6,29 +6,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    'application','https://fonts.googleapis.com/css?family=Roboto', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <style>
-     body {
-      font-family: 'Roboto';
-      font-style: normal;
-      font-size: 15px;
-     }
-    </style>
   
   </head>
 
   <body>
     <%=render "shared/nav"%>
-    <div class="container-fluid">
-    	<div class="alert" role="alert">
-        <% if flash[:notice] %>
-  	  	  <div class="alert-success" ><%= notice %></div>
-        <% end %>
-        <% if flash[:alert] %>
-          <div class="alert-danger"><%= alert %></div>
-        <% end %>
-    	</div>
+    <div class="row">
+      <%if user_signed_in?%> 
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <span class="nav-link">
+                <i class="fa fa-home fa-lg" aria-hidden="true"></i>
+                <%=link_to "My Document",home_index_path,style: "text-decoration: none; color: black;"%>
+                
+              </span>
+              
+            </li>
+            <li class="nav-item">
+              <span class="nav-link">
+                <i class="fa fa-share-alt fa-lg" aria-hidde="true"></i>
+                <%= link_to "Shared By me",sharedbyme_path,style: "text-decoration:none; color:black;"%>
+                
+              </span>
+              
+            </li>
+            <li class="nav-item">
+              <span class="nav-link">
+                <i class="fa fa-share-alt-square fa-lg"></i> 
+                <%= link_to "Shared With Me",sharedwithme_path,style: "text-decoration:none; color:black;"%>
+                 
+              </span>
+              
+            </li>
+          </ul>
+        </nav>
+      <%end%>
       
-      <%= yield %>
+      <div class="col-md-10">
+        <div class="alert" role="alert">
+          <% if flash[:notice] %>
+            <div class="alert-success" ><%= notice %></div>
+          <% end %>
+          <% if flash[:alert] %>
+            <div class="alert-danger"><%= alert %></div>
+          <% end %>
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-10">
+            <%= yield %> 
+          </div>
+          <div class="col-md-1"></div>
+        </div>
+                 
+      </div>  
     </div>
+
+    
   </body>
 </html>
