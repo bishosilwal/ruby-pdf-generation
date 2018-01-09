@@ -3,16 +3,18 @@ class HomeController < ApplicationController
   before_action :authenticate_user!,except: [:index]
   def index
     if user_document
-        @user_documents=all_documents.page(params[:page]).per(4)
-        @shared_documents=DocumentShare.shared_documents(current_user.id).page(params[:page]).per(4)
+        @user_documents=all_documents.page(params[:user_documents]).per(5)
+        @shared_documents=DocumentShare.shared_documents(current_user.id).page(params[:share_documents]).per(5)
     end
     if user_signed_in?
-      @access_documents=DocumentShare.access_documents(current_user.id).page(params[:page]).per(4)
+      @access_documents=DocumentShare.access_documents(current_user.id).page(params[:access_documents]).per(5)
     end
-    
+
+   
   end
 
   def show
+
     pdf=pdf_file(params[:id])
     send_file(pdf, :filename => "your_document.pdf", :disposition => 'inline', :type => "application/pdf")
     

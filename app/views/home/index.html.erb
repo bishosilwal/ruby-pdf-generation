@@ -26,7 +26,7 @@
 									</div>
 											
 									<button type="button" class="btn btn-primary" data-id=<%=document.id%> data-toggle="modal" data-target="#viewPdf">View
-									  <i class="fa fa-eye "></i>
+									  <i class="fa fa-eye " alt="test view"></i>
 									</button>
 									<button type="button" class="btn btn-success" data-id=<%=document.id%> data-toggle="modal" data-target="#sharePdf">
 										<i class="fa fa-share"></i>Share
@@ -39,7 +39,7 @@
 							<%end%>
 						</tbody>
 					</table>
-					<%=paginate @user_documents%>
+					<%=paginate @user_documents,param_name: :user_documents%>
 				</div>
 
 				<div class="col-md-6">
@@ -80,7 +80,7 @@
 							<%end%>
 						</tbody>
 					</table>
-					<%=paginate @access_documents%>
+					<%=paginate @access_documents,param_name: :access_documents%>
 				</div>
 			</div>
 
@@ -123,7 +123,7 @@
 							<% end %>
 						</tbody>
 					</table>
-					<%=paginate @shared_documents%>
+					<%=paginate @shared_documents,param_name: :share_documents%>
 				</div>
 
 			</div>
@@ -157,11 +157,11 @@
 		</div>
 	</div>	
 
-	<div class="modal fade" id="sharePdf" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="sharePdf" tabindex="-1" role="dialog" aria-labelledby="viewPdfLabel" aria-hidden="true">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Share Document</h5>
+	        <h5 class="modal-title" id="viewPdfLabel">Share Document</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -194,3 +194,4 @@
 	</div>		
 	
 </div>
+
