@@ -23,12 +23,14 @@ h1 {
   margin-bottom: 20px;
   border-bottom: 1px solid #eee;
 }
-
+ul li{
+  list-style-type: none;
+}
 /*
- * Sidebar
+ * manu-bar
  */
 
-.sidebar {
+.menu-bar {
   position: fixed;
   float: left;
   top: 0px;
@@ -42,19 +44,19 @@ h1 {
   border-right: 1px solid #eee;
 }
 
-.sidebar .nav {
+.menu-bar .nav {
   margin-bottom: 20px;
 }
 
-.sidebar .nav-item {
+.menu-bar .nav-item {
   width: 100%;
 }
 
-.sidebar .nav-item + .nav-item {
+.menu-bar .nav-item + .nav-item {
   margin-left: 0;
 }
 
-.sidebar .nav-link {
+.menu-bar .nav-link {
   border-radius: 0;
 }
 

@@ -1,49 +1,49 @@
 
-<h3>Shared By Me</h3>
-<%if user_signed_in?%>
-	<%if @shared_documents.any?%>
-	<!-- file show  -->
-		<div class="row mx-2">
-			<%@shared_documents.each do |document|%>
-				<div class="col-md-2">
-				
-							
-					<div class="card bg-light border-success text-center custom-card">
-						<div class="card-header p-1">
-							<%=UserDocument.find(document.doc_id).document_file_name%>
-						</div>
-						<div class="card-body p-2">
-							<div>
-								<i class="fa fa-file-pdf-o fa-4x"></i>
+	<h3>Shared By Me</h3>
+	<div class="row mx-2">
+		<%if user_signed_in?%>
+			<%if @shared_documents.any?%>
+			<!-- file show  -->
+				<%@shared_documents.each do |document|%>
+					<div class="col-auto">
+								
+						<div class="card bg-light border-success text-center custom-card">
+							<div class="card-header p-1">
+								<%=UserDocument.find(document.doc_id).document_file_name%>
 							</div>
-							<%=User.find(document.receipt_id).email%>
-						</div>
-						<div class="card-footer p-1">
-							<%=link_to home_path(document.id),method: :delete,data: {confirm: "Are you sure want to delete this file"} do%>
-								<i class="fa fa-trash-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
-							<%end%>
-							<span  data-id=<%=document.doc_id%> data-toggle="modal" data-target="#viewPdf" data-toggle="tooltip" data-placement="bottom" title="View">
-								<i class="fa fa-eye fa-lg"></i>
-							</span>
-							<%=link_to share_path(document),method: :delete,data: {confirm: "Are you sure want to Unshare Document?"} do  %>
-								<i class="fa fa-share-square-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Unshare"></i>	
-							<%end%>
+							<div class="card-body p-2">
+								<div>
+									<i class="fa fa-file-pdf-o fa-4x"></i>
+								</div>
+								<%=User.find(document.receipt_id).email%>
+							</div>
+							<div class="card-footer p-1">
+								<%=link_to home_path(document.id),method: :delete,data: {confirm: "Are you sure want to delete this file"} do%>
+									<i class="fa fa-trash-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+								<%end%>
+								<span  data-id=<%=document.doc_id%> data-toggle="modal" data-target="#viewPdf" data-toggle="tooltip" data-placement="bottom" title="View">
+									<i class="fa fa-eye fa-lg"></i>
+								</span>
+								<%=link_to share_path(document),method: :delete,data: {confirm: "Are you sure want to Unshare Document?"} do  %>
+									<i class="fa fa-share-square-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Unshare"></i>	
+								<%end%>
 
+							</div>
 						</div>
 					</div>
+				<%end%>
+
+				<!-- file show end -->
+				<div class="mx-auto mt-5">
+					<%=paginate @shared_documents,param_name: :user_documents%>
 				</div>
-			<%end%>
 				
-		</div>
-		<!-- file show end -->
-		<div class="row mx-auto mt-5">
-			<%=paginate @shared_documents,param_name: :user_documents%>
-		</div>
-		
-	<%end%>
-<%else%>
-	<h3>Please signed in to create document or view your documents</h3>
-<%end%>
+			<%end%>
+		<%else%>
+			<h3>Please signed in to create document or view your documents</h3>
+		<%end%>
 
+		<%=render "shared/viewpdf" %>
+	</div>
 
-<%=render "shared/viewpdf" %>
+	
