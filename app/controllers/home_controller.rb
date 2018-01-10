@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   before_action :authenticate_user!,except: [:index]
   def index
     if user_document
-        @user_documents=all_documents.page(params[:user_documents]).per(5)
+        @user_documents=all_documents.page(params[:user_documents]).per(12)
     end
   end
 

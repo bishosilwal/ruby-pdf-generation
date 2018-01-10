@@ -39,14 +39,14 @@ class ShareController < ApplicationController
 
    def sharedbyme
     if user_document
-      @shared_documents=DocumentShare.shared_documents(current_user.id).page(params[:share_documents]).per(5)
+      @shared_documents=DocumentShare.shared_documents(current_user.id).page(params[:share_documents]).per(12)
     end
 
   end
 
   def sharedwithme
     if user_signed_in?
-      @access_documents=DocumentShare.access_documents(current_user.id).page(params[:access_documents]).per(5)
+      @access_documents=DocumentShare.access_documents(current_user.id).page(params[:access_documents]).per(12)
     end
   end
 

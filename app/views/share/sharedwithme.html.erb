@@ -1,42 +1,44 @@
 <%if user_signed_in?%>
-	<h4>Shared with me</h4> 
-	<table class="table table-hover table-bordered">
-		<thead>
-			<tr>
-				<th>Document Name</th>
-				<th> Owner</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<%if @access_documents.any?%>
-				<%@access_documents.each do |accessDocuments|%>
-					<tr>
-						<td><%=UserDocument.find(accessDocuments.doc_id).document_file_name%></td>
-						<td><%=User.find(accessDocuments.owner_id).email%></td>
-						<td>
-							<button type="button" class="btn btn-primary" data-id=<%=accessDocuments.doc_id%> data-toggle="modal" data-target="#viewPdf">
-					  	View
-					  	<i class="fa fa-eye "></i>
-							</button>
-							<%=link_to share_path(accessDocuments),method: :delete,data: {confirm: "Are you sure want to unaccess Document?"} do%>
-								<span class="btn btn-secondary">
-									<i class="fa fa-chain-broken"></i>UnAccess
-								</span>
+	<%if @access_documents.any?%>
+	<h3>Shared With Me</h3>
+	<!-- file show  -->
+		<div class="row mx-2">
+			
+			<%@access_documents.each do |document|%>
+				<div class="col-md-2 ">		
+					<div class="card bg-light border-success text-center">
+						<div class="card-header p-1">
+							<%=UserDocument.find(document.doc_id).document_file_name%>
+						</div>
+						<div class="card-body p-2">
+							<div>
+								<i class="fa fa-file-pdf-o fa-4x"></i>
+							</div>
+							<%=User.find(document.owner_id).email%>
+						</div>
+						<div class="card-footer p-1">
+							<span  data-id=<%=document.doc_id%> data-toggle="modal" data-target="#viewPdf" data-toggle="tooltip" data-placement="bottom" title="View">
+								<i class="fa fa-eye fa-lg"></i>
+							</span>
+							<%=link_to share_path(document),method: :delete,data: {confirm: "Are you sure want to unaccess Document?"} do  %>
+								<i class="fa fa-chain-broken fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Unaccess"></i>	
 							<%end%>
-
-						</td>
-					</tr>
-				<%end%>
-				
-			<%else%>
-				<tr>
-					<td colspan="3">You don't have access documents!!</td>
-				</tr>
+							
+						</div>
+					</div>
+				</div>
 			<%end%>
-		</tbody>
-	</table>
-	<%=paginate @access_documents,param_name: :access_documents%>
-
+				
+		</div>
+		<!-- file show end -->
+		<div class="row mx-auto mt-5">
+			<%=paginate @access_documents,param_name: :user_documents%>
+		</div>
+		
+	<%end%>
+<%else%>
+	<h3>Please signed in to create document or view your documents</h3>
 <%end%>
+
 <%=render "shared/viewpdf" %>
+
