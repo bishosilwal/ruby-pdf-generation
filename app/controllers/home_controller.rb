@@ -3,15 +3,15 @@ class HomeController < ApplicationController
   before_action :authenticate_user!,except: [:index]
   def index
     if user_document
-        @user_documents=all_documents.page(params[:user_documents]).per(12)
+        @all_folder=Folder.where(user_id: current_user.id)
+        @root_folder=@all_folder.where(parent_id: 0)
+        @folders=@all_folder.where(parent_id: @root_folder.first.id)
+        @documents=all_documents(@root_folder.first.id).page(params[:user_documents]).per(12)
     end
   end
-
   def show
-
     pdf=pdf_file(params[:id])
-    send_file(pdf, :filename => "your_document.pdf", :disposition => 'inline', :type => "application/pdf")
-    
+    send_file(pdf, :filename => "your_document.pdf", :disposition => 'inline', :type => "application/pdf")    
   end
 
   def new
@@ -19,13 +19,20 @@ class HomeController < ApplicationController
 
   def create
     user_data=home_params
+    #generate the pdf document with the user given data content
     pdf=PdfGenerator.new(user_data)
     file_path = new_file_path
     pdf.render_file file_path
     @document_file=File.open(file_path)
+
+    #find if root folder exist ,if not then create one else get existed one
+    @root_folder=Folder.find_or_create_by(user_id: current_user.id,parent_id: 0,name: nil)
     @document_model=UserDocument.new
     @document_model.document=@document_file
     @document_model.user_id=current_user.id
+
+    #put newly created document to the root folder
+    @document_model.folder_id=@root_folder.id
     if @document_model.save
       flash[:notice]="Document's pdf successfully created"
     else
@@ -51,9 +58,5 @@ class HomeController < ApplicationController
     end
     redirect_to home_index_path ,notice: "Document successfully deleted.."
   end
-
- 
-
-
   
 end

@@ -1,0 +1,81 @@
+<div class="row mx-2 ">	
+	<%if @folders%>
+		<% @folders.each do |folder|%>
+			<div class="col-auto">
+				<div class="container-fluid ">
+					<%=link_to folder_path(folder) do%>	
+						<div class=" card bg-light border-success  text-center custom-card ">
+							<div class="card-header p-1 folder-icon">
+								<%=folder.name%>
+							</div>
+							<div class="card-body p-2 folder-icon">
+								<i class="fa fa-folder-o fa-4x"></i>
+							</div>
+							<div class="card-footer p-1">
+								<%=link_to folder_path(folder.id),method: :delete,data: {confirm: "Are you sure want to delete this folder"} do%>
+									<i class="fa fa-trash-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+
+								<%end%>
+								<!-- <span  data-id=<%#=document.id%> data-toggle="modal" data-target="#sharePdf" data-toggle="tooltip" data-placement="bottom" title="Share File">
+									<i class="fa fa-share fa-lg"></i>
+								</span>
+								 -->
+							</div>
+						</div>
+					<% end %>
+
+				</div>
+				
+			</div>
+
+		<% end%>
+	<%end%>
+
+	<%if @documents%>
+	<!-- file show  -->
+		<%@documents.each do |document|%>
+			<div class="col-auto ">
+				<div class="container-fluid ">
+					<div class=" card bg-light border-success  text-center custom-card">
+						<div class="card-header p-1">
+							<%=document.document_file_name%>
+						</div>
+						<div class="card-body p-2 ">
+							<i class="fa fa-file-pdf-o fa-4x"></i>
+						</div>
+						<div class="card-footer p-1">
+							<%=link_to home_path(document.id),method: :delete,data: {confirm: "Are you sure want to delete this file"} do%>
+								<i class="fa fa-trash-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+							<%end%>
+							<span  data-id=<%=document.id%> data-toggle="modal" data-target="#viewPdf" data-toggle="tooltip" data-placement="bottom" title="View">
+								<i class="fa fa-eye fa-lg" ></i>
+							</span>
+							<span  data-id=<%=document.id%> data-toggle="modal" data-target="#sharePdf" data-toggle="tooltip" data-placement="bottom" title="Share File">
+								<i class="fa fa-share fa-lg"></i>
+							</span>
+						</div>
+					</div>
+
+				</div>
+				
+			</div>
+		<%end%>
+			<!-- </div>	 -->
+			
+		<%=render "shared/viewpdf" %>
+		<%=render "shared/sharepdf" %>
+		<!-- file show end -->
+		<div class="row mx-2 mt-5">
+			<%=paginate @documents,param_name: :user_documents%>
+		</div>
+	<%end%>
+	<%if @documents.empty? && @folders.empty?%>
+		<h3> Folder is empty</h3>
+	<%end%>
+
+</div>
+		
+		
+	
+
+	

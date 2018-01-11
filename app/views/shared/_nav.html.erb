@@ -1,5 +1,7 @@
 <nav class="navbar  navbar-light bg-light">
-  <%=link_to "Home",home_index_path,class: "navbar-brand"%>
+    <%=link_to "Home",home_index_path,class: "navbar-brand"%>
+
+  
   <form class="form-inline">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -18,7 +20,4 @@
     </li>
   </ul>
 </nav>
-<%if user_signed_in?%>
-  <%=render "shared/secondarynav"%>
-<%end%>
 

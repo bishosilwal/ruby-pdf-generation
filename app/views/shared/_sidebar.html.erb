@@ -1,0 +1,31 @@
+<nav class="col-md-2 col-sm-2  d-none d-sm-block bg-light  menu-bar">
+  <button type="button" class="navbar-toggler" data-toggled="collapse" data-target="#menu-bar"  aria-controls="menu-bar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <ul class="nav ">
+    <li class="nav-item">
+      <span class="nav-link" data-toggle="tooltip" data-placement="right" title="View all documents">
+        <i class="fa fa-home fa-lg" aria-hidden="true"></i>
+        <%=link_to "My Document",home_index_path,style: "text-decoration: none; color: black;"%>
+      </span>
+      
+    </li>
+    <li class="nav-item">
+      <span class="nav-link" ata-toggle="tooltip" data-placement="right" title="Documents shared by you">
+        <i class="fa fa-share-alt fa-lg" aria-hidde="true"></i>
+        <%= link_to "Shared By me",sharedbyme_path,style: "text-decoration:none; color:black;"%>
+        
+      </span>
+      
+    </li>
+    <li class="nav-item">
+      <span class="nav-link" ata-toggle="tooltip" data-placement="right" title="Documents access for you">
+        <i class="fa fa-share-alt-square fa-lg"></i> 
+        <%= link_to "Shared With Me",sharedwithme_path,style: "text-decoration:none; color:black;"%>
+         
+      </span>
+      
+    </li>
+  </ul>
+  
+</nav>

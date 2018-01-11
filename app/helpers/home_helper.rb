@@ -2,8 +2,8 @@ module HomeHelper
 	def user_document
 		user_signed_in? && current_user.user_documents.any?
 	end
-	def all_documents
-		current_user.user_documents.all
+	def all_documents(folder_id)
+		current_user.user_documents.where(folder_id: folder_id)
 	end
 
 	def new_file_path

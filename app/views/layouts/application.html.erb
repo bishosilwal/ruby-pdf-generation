@@ -12,52 +12,42 @@
   <body>
     <div class="container-fluid">
       <%=render "shared/nav"%>
+      <%if user_signed_in?%>
+
+        <%=render "shared/sidebar"%>
+        <%=render partial: "shared/secondarynav",locals: {parent_folder: @root_folder }%>
+          
+      <%end%>
+      
       <div class="row "> 
         <%if user_signed_in?%>
-          
-          <nav class="col-md-2 col-sm-2  d-none d-sm-block bg-light  menu-bar">
-            <button type="button" class="navbar-toggler" data-toggled="collapse" data-target="#menu-bar"  aria-controls="menu-bar" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <ul class="nav ">
-              <li class="nav-item">
-                <span class="nav-link" data-toggle="tooltip" data-placement="right" title="View all documents">
-                  <i class="fa fa-home fa-lg" aria-hidden="true"></i>
-                  <%=link_to "My Document",home_index_path,style: "text-decoration: none; color: black;"%>
-                </span>
-                
-              </li>
-              <li class="nav-item">
-                <span class="nav-link" ata-toggle="tooltip" data-placement="right" title="Documents shared by you">
-                  <i class="fa fa-share-alt fa-lg" aria-hidde="true"></i>
-                  <%= link_to "Shared By me",sharedbyme_path,style: "text-decoration:none; color:black;"%>
-                  
-                </span>
-                
-              </li>
-              <li class="nav-item">
-                <span class="nav-link" ata-toggle="tooltip" data-placement="right" title="Documents access for you">
-                  <i class="fa fa-share-alt-square fa-lg"></i> 
-                  <%= link_to "Shared With Me",sharedwithme_path,style: "text-decoration:none; color:black;"%>
-                   
-                </span>
-                
-              </li>
-            </ul>
+          <div class="col-auto" >
+            <div class="alert col-auto" role="alert">
+              <% if flash[:notice] %>
+                <div class="alert-success" ><%= notice %></div>
+              <% end %>
+              <% if flash[:alert] %>
+                <div class="alert-danger"><%= alert %></div>
+              <% end %>
+            </div>
+            <%= yield %>
+
+          </div>  
+        <%else%>
+
+          <div class="col-12  text-center">
             
-          </nav>
-        <%end%>
-        <div class="col-md-10 col-sm-10" >
-          <div class="alert col-auto" role="alert">
-            <% if flash[:notice] %>
-              <div class="alert-success" ><%= notice %></div>
-            <% end %>
-            <% if flash[:alert] %>
-              <div class="alert-danger"><%= alert %></div>
-            <% end %>
+              <% if flash[:notice] %>
+                <div class="alert-success " ><%= notice %></div>
+              <% end %>
+              <% if flash[:alert] %>
+                <div class="alert-danger "><%= alert %></div>
+              <% end %>
+           
+            <%=yield%>
           </div>
-          <%= yield %>         
-        </div> 
+        <%end%>   
+         
       </div> 
 
     </div>

@@ -41,6 +41,10 @@ $(document).ready(function() {
 		$(this).find('.modal-body,.user-share-form,#hiddenDocId').val(docId)
 
 	});
+
+	$(document).on('shown.bs.modal','', function () {
+  $('#myInput').trigger('focus')
+})
 });
 
 
