@@ -5,7 +5,7 @@
       <button type="button" class="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#newFolderModal">
         New Folder
       </button>
-  		<%= link_to "New Document",new_home_path,class: "btn btn-info btn-sm mr-2"%>
+  		<%= link_to "New Document",new_home_path(parent_folder_id: parent_folder.id),class: "btn btn-info btn-sm mr-2"%>
   	</div>
   	
   </div>

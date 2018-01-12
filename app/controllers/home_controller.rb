@@ -15,9 +15,12 @@ class HomeController < ApplicationController
   end
 
   def new
+    @all_folder=Folder.where(user_id: current_user.id)
+    @root_folder=@all_folder.where(parent_id: 0).first
   end
 
   def create
+
     user_data=home_params
     #generate the pdf document with the user given data content
     pdf=PdfGenerator.new(user_data)
@@ -26,20 +29,22 @@ class HomeController < ApplicationController
     @document_file=File.open(file_path)
 
     #find if root folder exist ,if not then create one else get existed one
+    
     @root_folder=Folder.find_or_create_by(user_id: current_user.id,parent_id: 0,name: nil)
+    @parent_folder=Folder.find(params[:parent_folder_id])
     @document_model=UserDocument.new
     @document_model.document=@document_file
     @document_model.user_id=current_user.id
 
     #put newly created document to the root folder
-    @document_model.folder_id=@root_folder.id
+    @document_model.folder_id=@parent_folder.id
     if @document_model.save
       flash[:notice]="Document's pdf successfully created"
     else
       flash[:alert]="pdf is not created"
     end
     respond_to do |format|
-      format.html {redirect_to home_index_path}
+      format.html {redirect_to folder_path(@parent_folder.id)}
       format.pdf do 
         
         send_data(pdf, filename: 'new-document.pdf', type: 'application/pdf')

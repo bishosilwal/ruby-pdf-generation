@@ -27,6 +27,8 @@
 					</tbody>
 				</table>
 				<%= hidden_field_tag :rowcount ,value="1"%>
+				<%= hidden_field_tag :parent_folder_id ,value=params[:parent_folder_id]%>
+				
 				<p>
 					<div class="btn btn-info" onclick="insRow()">
 						Add New Row 
