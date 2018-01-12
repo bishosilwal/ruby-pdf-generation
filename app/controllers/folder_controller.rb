@@ -14,7 +14,15 @@ class FolderController < ApplicationController
   end
 
   def destroy
-    
+    @folder=Folder.find(params[:id])
+    parent_id=@folder.parent_id
+    if @folder.destroy
+      flash[:notice]="folder deleted successfully"
+    else
+      flash[:alert]="folder is not deleted!!"
+    end
+
+    redirect_to folder_path(parent_id)
   end
 
   def show
