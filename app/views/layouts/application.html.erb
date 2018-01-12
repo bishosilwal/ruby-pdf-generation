@@ -15,13 +15,15 @@
       <%if user_signed_in?%>
 
         <%=render "shared/sidebar"%>
-        <%=render partial: "shared/secondarynav",locals: {parent_folder: @root_folder }%>
+        <%unless @shared_documents || @access_documents %>
+          <%=render partial: "shared/secondarynav",locals: {parent_folder: @root_folder }%>
+        <%end%>
           
       <%end%>
       
       <div class="row "> 
         <%if user_signed_in?%>
-          <div class="col-auto" >
+          <div class="col-12" >
             <div class="alert col-auto" role="alert">
               <% if flash[:notice] %>
                 <div class="alert-success" ><%= notice %></div>

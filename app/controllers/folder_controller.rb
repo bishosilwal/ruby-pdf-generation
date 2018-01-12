@@ -4,10 +4,17 @@ class FolderController < ApplicationController
   end
 
   def create
+   new_folder=Folder.new(name: folder_params[:folder_name],parent_id: folder_params[:parent_folder],user_id: current_user.id)
+   if new_folder.save
+    flash[:notice]="New Folder create successfully"
+   else
+    flash[:alert]="New Folder create failed"
+   end 
+   redirect_to folder_path(folder_params[:parent_folder])
   end
 
   def destroy
-    byebug
+    
   end
 
   def show
@@ -17,5 +24,9 @@ class FolderController < ApplicationController
   end
 
   def edit
+  end
+
+  def folder_params
+    params.permit(:folder_name,:parent_folder,:utf8, :authenticity_token, :commit, :method)
   end
 end

@@ -62,8 +62,7 @@
 		<%end%>
 			<!-- </div>	 -->
 			
-		<%=render "shared/viewpdf" %>
-		<%=render "shared/sharepdf" %>
+		
 		<!-- file show end -->
 		<div class="row mx-2 mt-5">
 			<%=paginate @documents,param_name: :user_documents%>
@@ -72,7 +71,8 @@
 	<%if @documents.empty? && @folders.empty?%>
 		<h3> Folder is empty</h3>
 	<%end%>
-
+	<%=render "shared/viewpdf" %>
+	<%=render "shared/sharepdf" %>
 </div>
 		
 		

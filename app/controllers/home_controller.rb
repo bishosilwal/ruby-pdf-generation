@@ -4,9 +4,9 @@ class HomeController < ApplicationController
   def index
     if user_document
         @all_folder=Folder.where(user_id: current_user.id)
-        @root_folder=@all_folder.where(parent_id: 0)
-        @folders=@all_folder.where(parent_id: @root_folder.first.id)
-        @documents=all_documents(@root_folder.first.id).page(params[:user_documents]).per(12)
+        @root_folder=@all_folder.where(parent_id: 0).first
+        @folders=@all_folder.where(parent_id: @root_folder.id)
+        @documents=all_documents(@root_folder.id).page(params[:user_documents]).per(12)
     end
   end
   def show

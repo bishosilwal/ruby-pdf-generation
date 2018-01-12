@@ -9,24 +9,23 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	      	<div class="user-share-form">
-	      		<div class="form-group p-2">
-							<%= form_tag(controller: "share" ,action: "create", method: "post") do %>
-							  <%= label_tag(:user_email,"User Email:") %>
+      		<div class="form-group user-share-form w-auto">
+						<%= form_tag(controller: "share" ,action: "create", method: "post") do %>
+						  <%= label_tag(:user_email,"User Email:") %>
 
-							  <%= select_tag(:users_id,
-								  						 options_for_select(User.all.map { |u| [u.email, u.id]}),
-								               class: 'js-example-basic-multiple',
-								               	multiple: true, style:"width: 100%;")
-								%>
-							
-							  <br>
-							  <%=hidden_field_tag(:doc_id,nil,id: "hiddenDocId")%>
-							  <%= submit_tag("Share",class: "btn btn-info") %>
-							<% end %>
-		      	</div>
+						  <%= select_tag(:users_id,
+							  						 options_for_select(User.all.map { |u| [u.email, u.id]}),
+							               class: 'js-example-basic-multiple w-auto',
+							               	multiple: true)
+							%>
+						
+						  <br>
+						  <%=hidden_field_tag(:doc_id,nil,id: "hiddenDocId")%>
+						  <%= submit_tag("Share",class: "btn btn-info m-1") %>
+						<% end %>
 	      	</div>
-	      </div>
+      	</div>
+      
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 	      </div>

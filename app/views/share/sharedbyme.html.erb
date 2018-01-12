@@ -1,13 +1,15 @@
-
-	<h3>Shared By Me</h3>
 	<div class="row mx-2">
+		
 		<%if user_signed_in?%>
+			<div class="col-12"><h3>Shared By Me</h3></div>
 			<%if @shared_documents.any?%>
-			<!-- file show  -->
-				<%@shared_documents.each do |document|%>
-					<div class="col-auto">
-								
-						<div class="card bg-light border-success text-center custom-card">
+			
+				<div class="col-12">
+					<!-- file show  -->
+					<div class="row">
+					<%@shared_documents.each do |document|%>
+					
+						<div class="card bg-light border-success text-center custom-card m-2">
 							<div class="card-header p-1">
 								<%=UserDocument.find(document.doc_id).document_file_name%>
 							</div>
@@ -30,10 +32,13 @@
 
 							</div>
 						</div>
+					<%end%>
 					</div>
-				<%end%>
+						<!-- file show end -->
+				</div>
+				
 
-				<!-- file show end -->
+				
 				<div class="mx-auto mt-5">
 					<%=paginate @shared_documents,param_name: :user_documents%>
 				</div>
