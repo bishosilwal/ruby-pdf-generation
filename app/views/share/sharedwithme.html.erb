@@ -1,28 +1,33 @@
 <div class="row mx-2">
 	<%if user_signed_in?%>
 		<div class="col-12"><h3>Shared With Me</h3></div>
-		<%if @access_documents.any?%>
+
+		<%if @access_folders.any?%>
 		<!-- file show  -->
 			<div class="col-12">
 				<div class="row">
 					<%@access_folders.each do |folder|%>
-						<div class="col-auto">		
-							<div class="card bg-light border-success text-center custom-card">
-								<div class="card-header p-1">
-									<%=Folder.find(folder.folder_id).name%>
-								</div>
-								<div class="card-body p-2">
-									<div>
-										<i class="fa fa-file-pdf-o fa-4x"></i>
+						<%=link_to folder_path(folder.folder_id) do%>
+							<div class="col-auto">		
+								<div class="card bg-light border-success text-center custom-card ">
+									<div class="card-header p-1 folder-icon">
+										<%=Folder.find(folder.folder_id).name%>
 									</div>
-									<%=User.find(folder.owner_id).email%>
-								</div>
-								<div class="card-footer p-1">
-									
-									
+									<div class="card-body p-2 folder-icon">
+										<div>
+											<i class="fa fa-folder-o fa-4x"></i>
+										</div>
+										<%=User.find(folder.owner_id).email%>
+									</div>
+									<div class="card-footer p-1">
+										<%=link_to unsharefolder_path(folder_id: folder.id),method: :delete,data: {confirm: "Are you sure want to UnAccess Folder?"} do  %>
+											<i class="fa fa-share-square-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="UnAccess"></i>	
+										<%end%>
+										
+									</div>
 								</div>
 							</div>
-						</div>
+						<%end %>
 					<%end%>
 
 					<%@access_documents.each do |document|%>

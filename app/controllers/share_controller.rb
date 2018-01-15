@@ -72,8 +72,7 @@ class ShareController < ApplicationController
   def sharedwithme
     if user_signed_in?
       @access_documents=DocumentShare.access_documents(current_user.id).page(params[:access_documents]).per(12)
-      @access_folders=FolderShare.access_folders(current_user.id).page(params[:access_documents]).per(12)
-      
+      @access_folders=FolderShare.access_folders(current_user.id).page(params[:access_documents]).per(12) 
     end
   end
 

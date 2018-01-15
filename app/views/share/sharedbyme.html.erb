@@ -10,7 +10,7 @@
 					<%@shared_folders.each do |folder|%>
 						<%=link_to folder_path(folder.folder_id) do%>
 							<div class="card bg-light border-success text-center custom-card m-2">
-								<div class="card-header p-1">
+								<div class="card-header p-1 folder-icon">
 									<%=Folder.find(folder.folder_id).name%>
 								</div>
 								<div class="card-body p-2 folder-icon">
