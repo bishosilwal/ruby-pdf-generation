@@ -16,10 +16,10 @@
 									<i class="fa fa-trash-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
 
 								<%end%>
-								<!-- <span  data-id=<%#=document.id%> data-toggle="modal" data-target="#sharePdf" data-toggle="tooltip" data-placement="bottom" title="Share File">
+								<span  data-id=<%=folder.id%> data-toggle="modal" data-target="#sharePdf" data-toggle="tooltip" data-placement="bottom" title="Share File">
 									<i class="fa fa-share fa-lg"></i>
 								</span>
-								 -->
+								
 							</div>
 						</div>
 					<% end %>
@@ -69,7 +69,11 @@
 		</div>
 	<%end%>
 	<%if @documents.empty? && @folders.empty?%>
-		<h3> Folder is empty</h3>
+
+		<div class="col-12">
+			<h3> Folder is empty</h3>
+		</div>
+		
 	<%end%>
 	<%=render "shared/viewpdf" %>
 	<%=render "shared/sharepdf" %>

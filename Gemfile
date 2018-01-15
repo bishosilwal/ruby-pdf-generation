@@ -38,6 +38,7 @@ gem 'font-roboto-rails'
 gem 'font-awesome-sass'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem "paperclip", "~> 5.0.0"
+gem "wysiwyg-rails"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

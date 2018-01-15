@@ -1,13 +1,15 @@
 class HomeController < ApplicationController
   include HomeHelper
-  before_action :authenticate_user!,except: [:index]
+  before_action :authenticate_user!
   def index
-    if user_document
-        @all_folder=Folder.where(user_id: current_user.id)
-        @root_folder=@all_folder.where(parent_id: 0).first
-        @folders=@all_folder.where(parent_id: @root_folder.id)
-        @documents=all_documents(@root_folder.id).page(params[:user_documents]).per(12)
+    @all_folder=Folder.where(user_id: current_user.id)
+    @root_folder=@all_folder.where(parent_id: 0).first
+    if @root_folder.nil?
+      @root_folder=Folder.create(user_id: current_user.id,parent_id: 0)
     end
+    @folders=@all_folder.where(parent_id: @root_folder.id)
+    @documents=all_documents(@root_folder.id).page(params[:user_documents]).per(12)
+   
   end
   def show
     pdf=pdf_file(params[:id])

@@ -10,6 +10,31 @@ function insRow(){
 	
 }
 
+function saveDocument(){
+	source = $('#userEditor').froalaEditor('html.get',true); 
+	var doc = new jsPDF();
+	doc.fromHTML(
+  	source,
+  	15,
+  	15,
+  	{
+    'width': 180
+  	});
+	var userPdf=doc.output();
+	var formData=new FormData();
+	formData.append("userpdf",userPdf);
+
+	formData.append("parent_folder_id",$('#parent_folder_id').val());
+	$.ajax({
+    url: '/home/',
+    data: formData,
+    type: 'POST',
+    contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+    processData: false, // NEEDED, DON'T OMIT THIS
+    // ... Other options like success and etc
+	});
+
+}
 
 $(document).ready(function() {
 
@@ -31,9 +56,6 @@ $(document).ready(function() {
 
 	});
 
-	$('#document-save').on('click',function(event){
-		$('.user-editor').froalaEditor('save.save');
-	});
 
 	$('#sharePdf').on('show.bs.modal',function(event){
 		var button =$(event.relatedTarget)
@@ -42,9 +64,16 @@ $(document).ready(function() {
 
 	});
 
-	$(document).on('shown.bs.modal','', function () {
-  $('#myInput').trigger('focus')
-})
+	$(document).on('focus','#userEditor',function(event){
+
+		$('#userEditor').froalaEditor({
+	 	toolbarInline: false,
+	 	height: 300
+	 });
+	});
+	 
+
+
 });
 
 
