@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :folder, only: [:index,:create,:destroy,:show,:edit]
   match 'sharedbyme', to: 'share#sharedbyme', via: [:get]
 	match 'sharedwithme', to: 'share#sharedwithme', via: [:get]
+	match 'sharefolder',to: 'share#sharefolder',via: [:post]
+	match 'unsharefolder',to: 'share#unsharefolder', via: [:delete]
 
 
   root  "home#index"

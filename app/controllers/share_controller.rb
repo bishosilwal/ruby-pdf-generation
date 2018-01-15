@@ -26,6 +26,29 @@ class ShareController < ApplicationController
   		redirect_to sharedbyme_path
   end
 
+  def sharefolder
+    @ids=share_params[:users_id]
+    @ids.each do |id|
+      FolderShare.create!(
+          owner_id: current_user.id,
+          receipt_id: id,
+          folder_id: share_params[:folder_id]
+          )
+    end
+    redirect_to home_index_path,notice: "Folder share successfully"
+  end
+
+  def unsharefolder
+    @folder=FolderShare.find(params[:folder_id])
+    if @folder.destroy
+      flash[:notice]= "Folder unshared successfully"
+    else
+      flash[:alert]= "Folder is not unshared!!!"
+    end
+    redirect_to sharedbyme_path
+
+  end
+
   def show
     @document=DocumentShare.find_by(doc_id: params[:id])
     if current_user.id == @document.receipt_id
@@ -41,17 +64,21 @@ class ShareController < ApplicationController
     if user_document
       @shared_documents=DocumentShare.shared_documents(current_user.id).page(params[:share_documents]).per(12)
     end
-
+    if share_document
+     @shared_folders=FolderShare.shared_folders(current_user.id).page(params[:share_documents]).per(12)
+    end
   end
 
   def sharedwithme
     if user_signed_in?
       @access_documents=DocumentShare.access_documents(current_user.id).page(params[:access_documents]).per(12)
+      @access_folders=FolderShare.access_folders(current_user.id).page(params[:access_documents]).per(12)
+      
     end
   end
 
   def share_params
-    params.permit(:utf8, :method, :authenticity_token, :commit,{:users_id=> []},:doc_id)
+    params.permit(:utf8, :method, :authenticity_token, :commit,{:users_id=> []},:doc_id,:folder_id)
   end
 
 end

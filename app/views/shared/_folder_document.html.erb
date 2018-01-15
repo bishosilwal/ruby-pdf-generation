@@ -16,7 +16,7 @@
 									<i class="fa fa-trash-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
 
 								<%end%>
-								<span  data-id=<%=folder.id%> data-toggle="modal" data-target="#sharePdf" data-toggle="tooltip" data-placement="bottom" title="Share File">
+								<span  data-id=<%=folder.id%> data-toggle="modal" data-target="#shareFolder" data-toggle="tooltip" data-placement="bottom" title="Share Folder">
 									<i class="fa fa-share fa-lg"></i>
 								</span>
 								
@@ -75,6 +75,7 @@
 		</div>
 		
 	<%end%>
+	<%= render "shared/sharefolder"%>
 	<%=render "shared/viewpdf" %>
 	<%=render "shared/sharepdf" %>
 </div>

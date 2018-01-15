@@ -2,6 +2,42 @@
 		
 		<%if user_signed_in?%>
 			<div class="col-12"><h3>Shared By Me</h3></div>
+			<%if @shared_folders.any?%>
+			
+				<div class="col-12">
+					<!-- file show  -->
+					<div class="row">
+					<%@shared_folders.each do |folder|%>
+						<%=link_to folder_path(folder.folder_id) do%>
+							<div class="card bg-light border-success text-center custom-card m-2">
+								<div class="card-header p-1">
+									<%=Folder.find(folder.folder_id).name%>
+								</div>
+								<div class="card-body p-2 folder-icon">
+									<i class="fa fa-folder-o fa-4x"></i><br>
+									<%=User.find(folder.receipt_id).email%>
+								</div>
+								<div class="card-footer p-1">
+									<%=link_to unsharefolder_path(folder_id: folder.id),method: :delete,data: {confirm: "Are you sure want to Unshare Document?"} do  %>
+										<i class="fa fa-share-square-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Unshare"></i>	
+									<%end%>
+
+								</div>
+							</div>
+						<%end%>
+					<%end%>
+					</div>
+						<!-- file show end -->
+				</div>
+				
+
+				
+				<div class="mx-auto mt-5">
+					<%=paginate @shared_documents,param_name: :user_documents%>
+				</div>
+				
+			<%end%>
+
 			<%if @shared_documents.any?%>
 			
 				<div class="col-12">

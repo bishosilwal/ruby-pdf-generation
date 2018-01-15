@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180110112309) do
+ActiveRecord::Schema.define(version: 20180115102445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(version: 20180110112309) do
     t.bigint "owner_id"
     t.bigint "receipt_id"
     t.bigint "doc_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "folder_shares", force: :cascade do |t|
+    t.bigint "owner_id"
+    t.bigint "receipt_id"
+    t.bigint "folder_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

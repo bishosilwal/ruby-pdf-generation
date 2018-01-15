@@ -71,7 +71,13 @@ $(document).ready(function() {
 	 	height: 300
 	 });
 	});
-	 
+	
+	$('#shareFolder').on('show.bs.modal',function(event){
+		var button =$(event.relatedTarget)
+		var folderId=button.data('id')
+		$(this).find('.modal-body,.folder-share-form,#hiddenFolderId').val(folderId)
+
+	});
 
 
 });
