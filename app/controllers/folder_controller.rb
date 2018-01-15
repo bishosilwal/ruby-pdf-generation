@@ -15,8 +15,9 @@ class FolderController < ApplicationController
 
   def destroy
     @folder=Folder.find(params[:id])
+    @foldershare=FolderShare.where(folder_id: @folder.id)
     parent_id=@folder.parent_id
-    if @folder.destroy
+    if @folder.destroy && @foldershare.destroy_all
       flash[:notice]="folder deleted successfully"
     else
       flash[:alert]="folder is not deleted!!"
