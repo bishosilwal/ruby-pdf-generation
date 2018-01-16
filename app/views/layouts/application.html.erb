@@ -16,7 +16,7 @@
    
         <%=render "shared/sidebar"%>
         <%unless @shared_documents || @access_documents %>
-
+          
           <%=render partial: "shared/secondarynav",locals: {parent_folder: @root_folder }%>
         <%end%>
           

@@ -11,13 +11,16 @@
 							<div class="card-body p-2 folder-icon">
 								<i class="fa fa-folder-o fa-4x"></i>
 							</div>
-							<div class="card-footer p-1">
-								<%=link_to folder_path(folder.id),method: :delete,data: {confirm: "Are you sure want to delete this folder"} do%>
-									<i class="fa fa-trash-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
 
+							<div class="card-footer p-1">
+								<%if folder.user==current_user%>
+									<%=link_to folder_path(folder.id),method: :delete,data: {confirm: "Are you sure want to delete this folder"} do%>
+										<i class="fa fa-trash-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+
+									<%end%>
 								<%end%>
 								<span  data-id=<%=folder.id%> data-toggle="modal" data-target="#shareFolder" data-toggle="tooltip" data-placement="bottom" title="Share Folder">
-									<i class="fa fa-share fa-lg"></i>
+									<i class="fa fa-share fa-lg folder-icon"></i>
 								</span>
 								
 							</div>
@@ -44,8 +47,10 @@
 							<i class="fa fa-file-pdf-o fa-4x"></i>
 						</div>
 						<div class="card-footer p-1">
-							<%=link_to home_path(document.id),method: :delete,data: {confirm: "Are you sure want to delete this file"} do%>
-								<i class="fa fa-trash-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+							<%if document.user==current_user%>
+								<%=link_to home_path(document.id),method: :delete,data: {confirm: "Are you sure want to delete this file"} do%>
+									<i class="fa fa-trash-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+								<%end%>
 							<%end%>
 							<span  data-id=<%=document.id%> data-toggle="modal" data-target="#viewPdf" data-toggle="tooltip" data-placement="bottom" title="View">
 								<i class="fa fa-eye fa-lg" ></i>

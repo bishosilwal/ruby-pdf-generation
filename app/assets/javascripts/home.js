@@ -25,6 +25,7 @@ function saveDocument(){
 	formData.append("userpdf",userPdf);
 
 	formData.append("parent_folder_id",$('#parent_folder_id').val());
+	formData.append("doc_name",$('#document_name').val());
 	$.ajax({
     url: '/home/',
     data: formData,

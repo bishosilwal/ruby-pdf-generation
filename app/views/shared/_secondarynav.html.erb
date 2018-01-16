@@ -1,42 +1,44 @@
-<nav class="navbar sticky-top navbar-dark bg-dark ">   
-  <div class="navbar-nav ">
-  	<div class="d-inline-flex ">
-  		
-      <button type="button" class="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#newFolderModal">
-        New Folder
-      </button>
-  		<%= link_to "New Document",new_home_path(parent_folder_id: parent_folder.id),class: "btn btn-info btn-sm mr-2"%>
-  	</div>
-  	
-  </div>
-</nav>
-
-<!-- Modal -->
-<div class="modal fade" id="newFolderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create New Folder</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+<% if parent_folder.user==current_user%>
+  <nav class="navbar sticky-top navbar-dark bg-dark ">   
+    <div class="navbar-nav ">
+    	<div class="d-inline-flex ">
+    		
+        <button type="button" class="btn btn-success btn-sm mr-2" data-toggle="modal" data-target="#newFolderModal">
+          New Folder
         </button>
+    		<%= link_to "New Document",new_home_path(parent_folder_id: parent_folder.id),class: "btn btn-info btn-sm mr-2"%>
+    	</div>
+    	
+    </div>
+  </nav>
+
+  <!-- Modal -->
+  <div class="modal fade" id="newFolderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create New Folder</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+       
+        <div class="modal-body">
+           <%=form_tag(controller: "folder",action: "create",method: "post") do%>
+              <%=text_field_tag(:folder_name)%>
+              <%if parent_folder%>
+                <%=hidden_field_tag(:parent_folder,parent_folder.id)%>
+              <%end%>
+            <%=submit_tag "Create Folder",class: "btn btn-success"%>
+           <%end%>
+          
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      
       </div>
-     
-      <div class="modal-body">
-         <%=form_tag(controller: "folder",action: "create",method: "post") do%>
-            <%=text_field_tag(:folder_name)%>
-            <%if parent_folder%>
-              <%=hidden_field_tag(:parent_folder,parent_folder.id)%>
-            <%end%>
-          <%=submit_tag "Create Folder",class: "btn btn-success"%>
-         <%end%>
-        
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    
     </div>
   </div>
-</div>
+<%end%>

@@ -23,6 +23,10 @@ class HomeController < ApplicationController
 
   def create
     @document_model =create_document
+    if @document_model.nil?
+      redirect_to folder_path(@parent_folder.id)
+      return
+    end
     if @document_model.save
       flash[:notice]="Document's pdf successfully created"
     else

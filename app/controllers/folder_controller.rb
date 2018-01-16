@@ -5,6 +5,13 @@ class FolderController < ApplicationController
 
   def create
    new_folder=Folder.new(name: folder_params[:folder_name],parent_id: folder_params[:parent_folder],user_id: current_user.id)
+   prev_folder=Folder.where("parent_id=? AND name=? ",folder_params[:parent_folder],folder_params[:folder_name])
+  
+   if prev_folder.any?
+    flash[:alert]="#{folder_params[:folder_name]} is already exist!! Please choose different name."
+    redirect_to folder_path(folder_params[:parent_folder])
+    return
+   end
    if new_folder.save
     flash[:notice]="New Folder create successfully"
    else
