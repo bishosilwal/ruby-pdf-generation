@@ -2,15 +2,14 @@
 
 <div class="row text-center justify-content-center">
 	<div class="col-12"><h3>Create new document</h3></div>
+	<div class="col-10 "><input type="text" id="document_name" name="document_name" placeholder="Enter file name" class="form-control w-25 ml-5 mb-2"></div>
 	<div class="col-9">
-		<%#=form_tag(controller: "home",action: "create",method: "post") do%>
 	  	<textarea name="editor_content" id="userEditor" autofocus></textarea>
-	  	<%#= hidden_field_tag :parent_folder_id ,value=params[:parent_folder_id]%>
-	  	 <input type="hidden" id="parent_folder_id" name="parent_folder_id" value=<%=params[:parent_folder_id]%> >
+	  	<input type="hidden" id="parent_folder_id" name="parent_folder_id" value=<%=params[:parent_folder_id]%> >
 	  
 			<div class="form-group m-3" id="">
 				<div class="row">
-					<input type="text" id="document_name" name="document_name" placeholder="Enter file name" class="form-control w-25">
+					
 					<span id="document" class="btn btn-info ml-2" onclick="saveDocument()">create new document</span>
 				</div>
 			</div>
