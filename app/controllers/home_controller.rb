@@ -57,13 +57,16 @@ class HomeController < ApplicationController
     document=UserDocument.find(params[:id])
     prev_doc=UserDocument.find_by(document_file_name: params[:name])
     unless prev_doc.nil?
-      flash[:alert]="#{params[:name]} already exist.please choose different file name.."
-      redirect_to folder_path(document.folder_id)
-      return
+      if prev_doc.folder_id==document.folder_id
+        flash[:alert]="#{params[:name]} already exist.please choose different file name.."
+        redirect_to folder_path(document.folder_id)
+        return
+      end
     end
-   
+    filename=document.document_file_name
     document.document_file_name=params[:name]
     if document.save
+      File.rename("public/system/documents/"+document.id.to_s+"/original/"+filename,"public/system/documents/"+document.id.to_s+"/original/"+document.document_file_name)
       flash[:notice]="File name changed"
     else
       flash[:alert]="File name is not changed"

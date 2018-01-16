@@ -49,6 +49,18 @@ function changeName(id){
 		processData: false,
 	});
 }
+function changeFolder(id){
+	var name = $('#folderName'+id+'').val();
+	var formData=new FormData();
+	formData.append("name",name);
+	$.ajax({
+		url: '/folder/'+id,
+		data:formData,
+		type: 'PATCH',
+		contentType: false,
+		processData: false,
+	});
+}
 $(document).ready(function() {
 
 	$(document).on('show.bs.modal', '#viewPdf', function(event) {

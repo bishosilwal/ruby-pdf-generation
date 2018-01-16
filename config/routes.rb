@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :home
   resources :share, only: [:create,:destroy ,:show]
-  resources :folder, only: [:index,:create,:destroy,:show,:edit]
+  resources :folder, only: [:index,:create,:destroy,:show,:update]
   match 'sharedbyme', to: 'share#sharedbyme', via: [:get]
 	match 'sharedwithme', to: 'share#sharedwithme', via: [:get]
 	match 'sharefolder',to: 'share#sharefolder',via: [:post]

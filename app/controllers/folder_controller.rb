@@ -39,7 +39,25 @@ class FolderController < ApplicationController
     @documents=UserDocument.where(folder_id: @root_folder.id).page(params[:user_documents]).per(12)
   end
 
-  def edit
+  
+  def update
+    folder=Folder.find(params[:id])
+    prev_folder=Folder.find_by(name: params[:name])
+    unless prev_folder.nil?
+      if prev_folder.parent_id==folder.parent_id
+
+        flash[:alert]="#{params[:name]} folder already exist,Please choose different folder name.."
+        redirect_to folder_path(folder.parent_id)
+        return
+      end
+    end
+    folder.name=params[:name]
+    if folder.save
+      flash[:notice]="Folder name changed successfully"
+    else
+      flash[:alert]="Folder name is not changed successfully"
+    end
+    redirect_to folder_path(folder.parent_id)
   end
 
   def folder_params

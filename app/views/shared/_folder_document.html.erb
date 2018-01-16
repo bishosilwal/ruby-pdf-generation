@@ -3,29 +3,32 @@
 		<% @folders.each do |folder|%>
 			<div class="col-auto">
 				<div class="container-fluid ">
-					<%=link_to folder_path(folder) do%>	
-						<div class=" card bg-light border-success  text-center custom-card ">
-							<div class="card-header p-1 folder-icon">
-								<%=folder.name%>
-							</div>
-							<div class="card-body p-2 folder-icon">
-								<i class="fa fa-folder-o fa-4x"></i>
-							</div>
-
-							<div class="card-footer p-1">
-								<%if folder.user==current_user%>
-									<%=link_to folder_path(folder.id),method: :delete,data: {confirm: "Are you sure want to delete this folder"} do%>
-										<i class="fa fa-trash-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
-
-									<%end%>
-								<%end%>
-								<span  data-id=<%=folder.id%> data-toggle="modal" data-target="#shareFolder" data-toggle="tooltip" data-placement="bottom" title="Share Folder">
-									<i class="fa fa-share fa-lg folder-icon"></i>
-								</span>
-								
-							</div>
+					
+					<div class=" card bg-light border-success  text-center custom-card ">
+						<div class="card-header p-1 folder-icon">
+							<input type="text" onchange="changeFolder(<%= folder.id %>)" id="folderName<%=folder.id%>" class="" style="border: none;background-color:rgba(0, 0, 0, 0.03);" value="<%=folder.name%>" >
 						</div>
-					<% end %>
+						
+						<div class="card-body p-2 folder-icon">
+							<%=link_to folder_path(folder) do%>	
+								<i class="fa fa-folder-o fa-4x folder-icon"></i>
+							<% end %>
+						</div>
+
+						<div class="card-footer p-1">
+							<%if folder.user==current_user%>
+								<%=link_to folder_path(folder.id),method: :delete,data: {confirm: "Are you sure want to delete this folder"} do%>
+									<i class="fa fa-trash-o fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Delete"></i>
+
+								<%end%>
+							<%end%>
+							<span  data-id=<%=folder.id%> data-toggle="modal" data-target="#shareFolder" data-toggle="tooltip" data-placement="bottom" title="Share Folder">
+								<i class="fa fa-share fa-lg folder-icon"></i>
+							</span>
+							
+						</div>
+					</div>
+					
 
 				</div>
 				
@@ -41,7 +44,7 @@
 				<div class="container-fluid">
 					<div class=" card bg-light border-success  text-center custom-card">
 						<div class="card-header p-1" >
-							<input type="text" onchange="changeName(<%= document.id %>)" id="fileName<%=document.id%>" class="w-75"  style="border: none;background-color:rgba(0, 0, 0, 0.03);" value=<%=document.document_file_name%> >
+							<input type="text" onchange="changeName(<%= document.id %>)" id="fileName<%=document.id%>" class="w-75"  style="border: none;background-color:rgba(0, 0, 0, 0.03);" value="<%=document.document_file_name%>" >
 							
 						</div>
 						<div class="card-body p-2 ">
