@@ -76,18 +76,33 @@ $(document).ready(function() {
 	});	
 			
 	
-	$('.js-example-basic-multiple').select2({
-		placeholder: 'Select an email'
+		// $('.js-example-basic-multiple').select2({
+		// 	placeholder: 'Select an email'
 
-	});
+		// });
+	
+	$(document).on('show.bs.modal','#sharePdf',function(event){
+		$('.js-example-basic-multiple').select2({
+			placeholder: 'Select an email'
 
-
-	$('#sharePdf').on('show.bs.modal',function(event){
+		});
 		var button =$(event.relatedTarget)
 		var docId=button.data('id')
 		$(this).find('.modal-body,.user-share-form,#hiddenDocId').val(docId)
 
+
 	});
+
+	// $('#sharePdf').on('show.bs.modal',function(event){
+	// 	$('.js-example-basic-multiple').select2({
+	// 		placeholder: 'Select an email'
+
+	// 	});
+	// 	var button =$(event.relatedTarget)
+	// 	var docId=button.data('id')
+	// 	$(this).find('.modal-body,.user-share-form,#hiddenDocId').val(docId)
+
+	// });
 
 	$(document).on('focus','#userEditor',function(event){
 
@@ -96,13 +111,23 @@ $(document).ready(function() {
 	 	height: 300
 	 });
 	});
-	
-	$('#shareFolder').on('show.bs.modal',function(event){
+	$(document).on('show.bs.modal','#shareFolder',function(event){
+		$('.js-example-basic-multiple').select2({
+			placeholder: 'Select an email'
+
+		});
 		var button =$(event.relatedTarget)
 		var folderId=button.data('id')
 		$(this).find('.modal-body,.folder-share-form,#hiddenFolderId').val(folderId)
 
 	});
+	
+	// $('#shareFolder').on('show.bs.modal',function(event){
+	// 	var button =$(event.relatedTarget)
+	// 	var folderId=button.data('id')
+	// 	$(this).find('.modal-body,.folder-share-form,#hiddenFolderId').val(folderId)
+
+	// });
 	
 
 });
