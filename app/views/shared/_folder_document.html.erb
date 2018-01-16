@@ -37,11 +37,11 @@
 	<%if @documents%>
 	<!-- file show  -->
 		<%@documents.each do |document|%>
-			<div class="col-auto ">
-				<div class="container-fluid ">
+			<div class="col-auto" >
+				<div class="container-fluid">
 					<div class=" card bg-light border-success  text-center custom-card">
-						<div class="card-header p-1">
-							<input type="text" class="w-auto" style="border: none; background-color:" value=<%=document.document_file_name%> >
+						<div class="card-header p-1" >
+							<input type="text" onchange="changeName(<%= document.id %>)" id="fileName<%=document.id%>" class="w-75"  style="border: none;background-color:rgba(0, 0, 0, 0.03);" value=<%=document.document_file_name%> >
 							
 						</div>
 						<div class="card-body p-2 ">

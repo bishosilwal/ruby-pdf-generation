@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :home , only: [:index,:show,:new,:create,:destroy]
+  resources :home
   resources :share, only: [:create,:destroy ,:show]
   resources :folder, only: [:index,:create,:destroy,:show,:edit]
   match 'sharedbyme', to: 'share#sharedbyme', via: [:get]

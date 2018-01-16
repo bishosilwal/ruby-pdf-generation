@@ -37,6 +37,18 @@ function saveDocument(){
 
 }
 
+function changeName(id){
+	var name = $('#fileName'+id+'').val();
+	var formData=new FormData();
+	formData.append("name",name);
+	$.ajax({
+		url: '/home/'+id,
+		data:formData,
+		type: 'PATCH',
+		contentType: false,
+		processData: false,
+	});
+}
 $(document).ready(function() {
 
 	$(document).on('show.bs.modal', '#viewPdf', function(event) {
@@ -79,7 +91,7 @@ $(document).ready(function() {
 		$(this).find('.modal-body,.folder-share-form,#hiddenFolderId').val(folderId)
 
 	});
-
+	
 
 });
 
