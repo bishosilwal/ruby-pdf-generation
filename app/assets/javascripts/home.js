@@ -11,6 +11,12 @@ function insRow(){
 }
 
 function saveDocument(){
+	var docName=$('#document_name').val().trim();
+	if (docName.length==0){
+		$('#name_error').html("Please enter file name ");
+		return;
+	}
+
 	source = $('#userEditor').froalaEditor('html.get',true); 
 	var doc = new jsPDF();
 	doc.fromHTML(
@@ -25,7 +31,7 @@ function saveDocument(){
 	formData.append("userpdf",userPdf);
 
 	formData.append("parent_folder_id",$('#parent_folder_id').val());
-	formData.append("doc_name",$('#document_name').val());
+	formData.append("doc_name",docName);
 	$.ajax({
     url: '/home/',
     data: formData,

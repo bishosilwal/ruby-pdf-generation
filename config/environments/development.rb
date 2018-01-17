@@ -51,6 +51,17 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  
+  config.consider_all_requests_local = true
+
+  #better_error gem configuratin for default text editor to open with
+  if defined? BetterErrors
+  # Force all developers on this project to use Textmate, even if they prefer something else.
+
+    BetterErrors.editor = :subl
+  end
+
+
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   config.action_mailer.raise_delivery_errors = true
@@ -68,4 +79,6 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
   Paperclip.options[:command_path] = "/usr/bin/"
+
+
 end

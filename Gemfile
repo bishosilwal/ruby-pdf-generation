@@ -30,8 +30,8 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
-gem 'prawn'
-gem 'prawn-table'
+# gem 'prawn'
+# gem 'prawn-table'
 gem 'bootstrap', '~> 4.0.0.beta3'
 gem 'jquery-rails'
 gem 'font-roboto-rails'
@@ -39,6 +39,8 @@ gem 'font-awesome-sass'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem "paperclip", "~> 5.0.0"
 gem "wysiwyg-rails"
+gem "better_errors"
+gem "binding_of_caller"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

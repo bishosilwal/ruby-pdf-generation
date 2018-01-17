@@ -2,7 +2,13 @@
 
 <div class="row text-center justify-content-center">
 	<div class="col-12"><h3>Create new document</h3></div>
-	<div class="col-10 "><input type="text" id="document_name" name="document_name" placeholder="Enter file name" class="form-control w-25 ml-5 mb-2"></div>
+	<div class="col-10 ">
+		<div class="row">
+		
+		<input type="text" id="document_name" name="document_name" placeholder="Enter file name" class="form-control w-25 ml-5 mb-2" required><span id="name_error" class="ml-1" style="color: red;"></span> 
+		</div>
+		
+	</div>
 	<div class="col-9">
 	  	<textarea name="editor_content" id="userEditor" autofocus></textarea>
 	  	<input type="hidden" id="parent_folder_id" name="parent_folder_id" value=<%=params[:parent_folder_id]%> >

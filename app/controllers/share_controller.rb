@@ -61,7 +61,7 @@ class ShareController < ApplicationController
   end
 
    def sharedbyme
-      @shared_documents=DocumentShare.shared_documents(current_user.id).page(params[:share_documents]).per(12)
+    @shared_documents=DocumentShare.shared_documents(current_user.id).page(params[:share_documents]).per(12)
   
     if share_document
      @shared_folders=FolderShare.shared_folders(current_user.id).page(params[:share_documents]).per(12)
