@@ -62,7 +62,15 @@ class FolderController < ApplicationController
 
   def appendfolder
     parent_folder=Folder.find(params[:parentFolderId])
+    child_folders=Folder.where(parent_id: parent_folder.id)
     child_folder=Folder.find(params[:childFolderId])
+    child_folders.each  do |folder|
+      if folder.name==child_folder.name
+        flash[:alert]="Folder name #{child_folder.name} already exist .Please choose different name."
+        redirect_to folder_path(child_folder.parent_id)
+        return
+      end
+    end
     child_folder.parent_id=parent_folder.id
     if child_folder.save
       flash[:notice]="Folder moved successfully"
@@ -74,7 +82,15 @@ class FolderController < ApplicationController
 
   def appendfile
     parent_folder=Folder.find(params[:parentFolderId])
+    child_documents=UserDocument.where(folder_id: parent_folder.id)
     doc=UserDocument.find(params[:fileId])
+    child_documents.each do |document|
+      if document.document_file_name== doc.document_file_name
+        flash[:alert]="File name #{doc.document_file_name} already exist.Please choose different name"
+        redirect_to folder_path(doc.folder_id)
+        return
+      end
+    end
     doc.folder_id=parent_folder.id
     if doc.save
       flash[:notice]="File moved successfully"
