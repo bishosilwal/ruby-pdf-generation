@@ -1,3 +1,44 @@
+//Drag and Drop folder and file handling
+
+function dragFolder(ev,folderId){
+ ev.dataTransfer.setData("childFolderId",folderId);
+}
+
+function dropFolder(ev,parentFolderId){
+  ev.preventDefault();
+	childFolderId=ev.dataTransfer.getData("childFolderId");
+	fileId=ev.dataTransfer.getData("fileId");
+	var formData=new FormData();
+	var destUrl;
+	if(childFolderId){
+		formData.append("childFolderId",childFolderId);
+		destUrl='/appendfolder/';
+	}else if(fileId){
+		formData.append("fileId",fileId);
+		destUrl='/appendfile/';
+	}
+	
+	formData.append("parentFolderId",parentFolderId);
+
+	$.ajax({
+		url:destUrl,
+		data:formData,
+		type: 'POST',
+		contentType: false,
+		processData: false,
+	});
+}
+
+function allowFolderDrop(ev){
+	ev.preventDefault();
+}
+
+function dragFile(ev,fileId){
+	ev.dataTransfer.setData("fileId",fileId);
+}
+
+//drag and drop file and folder end
+
 function insRow(){
 	var tableRow=  $("#user-document-table tbody");
 	var rowCount=tableRow.children().length;
@@ -67,6 +108,7 @@ function changeFolder(id){
 		processData: false,
 	});
 }
+
 $(document).ready(function() {
 
 	$(document).on('show.bs.modal', '#viewPdf', function(event) {
@@ -80,12 +122,7 @@ $(document).ready(function() {
 
 
 	});	
-			
 	
-		// $('.js-example-basic-multiple').select2({
-		// 	placeholder: 'Select an email'
-
-		// });
 	
 	$(document).on('show.bs.modal','#sharePdf',function(event){
 		$('.js-example-basic-multiple').select2({
@@ -99,16 +136,6 @@ $(document).ready(function() {
 
 	});
 
-	// $('#sharePdf').on('show.bs.modal',function(event){
-	// 	$('.js-example-basic-multiple').select2({
-	// 		placeholder: 'Select an email'
-
-	// 	});
-	// 	var button =$(event.relatedTarget)
-	// 	var docId=button.data('id')
-	// 	$(this).find('.modal-body,.user-share-form,#hiddenDocId').val(docId)
-
-	// });
 
 	$(document).on('focus','#userEditor',function(event){
 
@@ -127,13 +154,8 @@ $(document).ready(function() {
 		$(this).find('.modal-body,.folder-share-form,#hiddenFolderId').val(folderId)
 
 	});
-	
-	// $('#shareFolder').on('show.bs.modal',function(event){
-	// 	var button =$(event.relatedTarget)
-	// 	var folderId=button.data('id')
-	// 	$(this).find('.modal-body,.folder-share-form,#hiddenFolderId').val(folderId)
 
-	// });
+	
 	
 
 });

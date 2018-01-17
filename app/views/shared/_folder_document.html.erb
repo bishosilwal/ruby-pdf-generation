@@ -4,14 +4,14 @@
 			<div class="col-auto">
 				<div class="container-fluid ">
 					
-					<div class=" card bg-light border-success  text-center custom-card ">
+					<div class=" card bg-light border-success  text-center custom-card " >
 						<div class="card-header p-1 folder-icon">
 							<input type="text" onchange="changeFolder(<%= folder.id %>)" id="folderName<%=folder.id%>" class="" style="border: none;background-color:rgba(0, 0, 0, 0.03);" value="<%=folder.name%>" >
 						</div>
 						
-						<div class="card-body p-2 folder-icon">
+						<div class="card-body p-2 folder-icon" ondrop="dropFolder(event,<%=folder.id%>)" ondragover="allowFolderDrop(event)">
 							<%=link_to folder_path(folder) do%>	
-								<i class="fa fa-folder-o fa-4x folder-icon"></i>
+								<i class="fa fa-folder-o fa-4x folder-icon" draggable="true" ondragstart="dragFolder(event,<%=folder.id%>)"></i>
 							<% end %>
 						</div>
 
@@ -48,7 +48,7 @@
 							
 						</div>
 						<div class="card-body p-2 ">
-							<i class="fa fa-file-pdf-o fa-4x"></i>
+							<i class="fa fa-file-pdf-o fa-4x" draggable="true" ondragstart="dragFile(event,<%=document.id%>)"></i>
 						</div>
 						<div class="card-footer p-1">
 							<%if document.user==current_user%>

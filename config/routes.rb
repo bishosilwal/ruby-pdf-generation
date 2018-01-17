@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 	match 'sharefolder',to: 'share#sharefolder',via: [:post]
 	match 'unsharefolder',to: 'share#unsharefolder', via: [:delete]
 
+  match 'appendfolder',to: 'folder#appendfolder',via: [:post]
+  match 'appendfile',to: 'folder#appendfile',via: [:post]
+
 
   root  "home#index"
  

@@ -60,7 +60,33 @@ class FolderController < ApplicationController
     redirect_to folder_path(folder.parent_id)
   end
 
+  def appendfolder
+    parent_folder=Folder.find(params[:parentFolderId])
+    child_folder=Folder.find(params[:childFolderId])
+    child_folder.parent_id=parent_folder.id
+    if child_folder.save
+      flash[:notice]="Folder moved successfully"
+    else
+      flash[:alert]="Folder is not moved successfully"
+    end
+    redirect_to folder_path(parent_folder.parent_id)
+  end
+
+  def appendfile
+    parent_folder=Folder.find(params[:parentFolderId])
+    doc=UserDocument.find(params[:fileId])
+    doc.folder_id=parent_folder.id
+    if doc.save
+      flash[:notice]="File moved successfully"
+    else
+      flash[:alert]="File is not moved successfully"
+    end
+    redirect_to folder_path(parent_folder.parent_id)
+  end
+
   def folder_params
     params.permit(:folder_name,:parent_folder,:utf8, :authenticity_token, :commit, :method)
   end
+
+
 end
