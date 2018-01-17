@@ -24,15 +24,36 @@
       
       <div class="row "> 
         <%if user_signed_in?%>
+          <div class="col-12 p-0">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb" style=" background-color: white;">
+                <li class="breadcrumb-item">
+                  <span class="btn btn-outline-secondary btn-sm m-1">
+                    <%if @root_folder.parent_id==0%>
+                      <%=link_to "Home",home_index_path,style: "color: black; text-decoration: none;"%>
+                    <%else%>
+                      <%= link_to "Back",folder_path(@root_folder.parent_id),style: "color: black; text-decoration: none;"%>
+                    <%end%>
+                      
+                  </span>
+                  
+                </li>
+              </ol>
+            </nav>
+          </div>
+          
+
           <div class="col-12" >
-            <div class="alert col-auto" role="alert">
-              <% if flash[:notice] %>
-                <div class="alert-success" ><%= notice %></div>
-              <% end %>
-              <% if flash[:alert] %>
-                <div class="alert-danger"><%= alert %></div>
-              <% end %>
-            </div>
+            <%if flash[:notice] || flash[:alert]%>
+              <div class="alert col-auto" role="alert">
+                <% if flash[:notice] %>
+                  <div class="alert-success" ><%= notice %></div>
+                <% end %>
+                <% if flash[:alert] %>
+                  <div class="alert-danger"><%= alert %></div>
+                <% end %>
+              </div>
+            <%end%>
             <%= yield %>
 
           </div>  
