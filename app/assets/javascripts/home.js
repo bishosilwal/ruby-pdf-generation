@@ -59,6 +59,10 @@ function saveDocument(){
 	}
 
 	source = $('#userEditor').froalaEditor('html.get',true); 
+	if(source.length==0){
+		$('#name_error').html("Please enter some content in editor");
+		return
+	}
 	var doc = new jsPDF();
 	doc.fromHTML(
   	source,
@@ -72,7 +76,7 @@ function saveDocument(){
 	formData.append("userpdf",userPdf);
 
 	formData.append("parent_folder_id",$('#parent_folder_id').val());
-	formData.append("doc_name",docName);
+	formData.append("document_name",docName);
 	$.ajax({
     url: '/home/',
     data: formData,
@@ -109,6 +113,7 @@ function changeFolder(id){
 	});
 }
 
+
 $(document).ready(function() {
 
 	$(document).on('show.bs.modal', '#viewPdf', function(event) {
@@ -118,9 +123,8 @@ $(document).ready(function() {
 
 	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
 	  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead. 
-	  $(this).find('.modal-body,.user-form, #pdfObject').attr("data","/home/"+docId+".pdf")
-
-
+	  $(this).find('.modal-body,.user-form, #pdfObject').attr("data","/home/"+docId)
+	  
 	});	
 	
 	
@@ -155,8 +159,8 @@ $(document).ready(function() {
 
 	});
 
-	
-	
+
+
 
 });
 

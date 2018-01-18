@@ -13,7 +13,13 @@ class HomeController < ApplicationController
   end
   def show
     pdf=pdf_file(params[:id])
-    send_file(pdf, :filename => "your_document.pdf", :disposition => 'inline', :type => "application/pdf")    
+    ext=File.extname(pdf)
+    if ext==".doc"
+      send_file(pdf, :filename => File.basename(pdf), :disposition => 'inline',:type=> "application/msword")  
+    elsif ext==".pdf"
+      send_file(pdf, :filename => File.basename(pdf), :disposition => 'inline',:type => "application/pdf")  
+    end
+
   end
 
   def new
@@ -22,9 +28,9 @@ class HomeController < ApplicationController
   end
 
   def create
-    @document_model =create_document
+     @document_model =create_document
     if @document_model.nil?
-      redirect_to folder_path(@parent_folder.id)
+      redirect_to folder_path(params[:parent_folder_id])
       return
     end
     if @document_model.save
