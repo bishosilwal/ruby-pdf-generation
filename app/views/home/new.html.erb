@@ -6,14 +6,28 @@
 	
 		<%=form_tag({contoller:"home",action:"createdocumentwithfolder",method: :post},multipart: true ) do%>
 			<div class="row">
+
+<!-- 						<input type="file" name="document_file[]" multiple/>
+
+ -->			<div class="col-md-6 offset-md-5 row ">
+						<input type="file" name="document_file[]" multiple webkitdirectory mozdirectory class="col-md-7 " style="margin-left:5%; "/>
+						<input type="hidden" id="parent_folder_id" name="parent_folder_id" value=<%=params[:parent_folder_id]%> >
+						<%=submit_tag "Upload Folder",class: "btn btn-success col-md-4", style: "margin-left: 10px;" %>
+					</div>
+
+				
+				
+			</div>
+		<%end%>
+		<%=form_tag({contoller:"home",action:"create",method: :post},multipart: true ) do%>
+			<div class="row">
 				<div class=" p-1 mr-5 ml-5">
 					<input type="text" id="document_name" name="document_name" placeholder="Enter file name" class="form-control" required><span id="name_error" class="ml-1" style="color: red;"></span>
 				</div>
 				<div class="row p-1 ml-5 pl-5">
 					<div class="col-8">
-<!-- 						<input type="file" name="document_file[]" multiple/>
- -->
-						<input type="file" name="document_file[]" multiple webkitdirectory mozdirectory/>
+						<input type="file" name="document_file[]" multiple/>
+
 						<input type="hidden" id="parent_folder_id" name="parent_folder_id" value=<%=params[:parent_folder_id]%> >
 					</div>
 					<div class="col-4">
