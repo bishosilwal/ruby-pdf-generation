@@ -28,16 +28,22 @@ class HomeController < ApplicationController
   end
 
   def create
-     @document_model =create_document
-    if @document_model.nil?
+     @document_models =create_document
+    if @document_models.nil?
+      #flash[:alert]="Document creation failed!!"
       redirect_to folder_path(params[:parent_folder_id])
       return
     end
-    if @document_model.save
-      flash[:notice]="Document's pdf successfully created"
-    else
-      flash[:alert]="pdf is not created"
+    flash[:notice]=""
+    flash[:alert]=""
+    @document_models.each do |document_model|
+      if document_model.save
+        flash[:notice]+="#{document_model.document_file_name} created,"
+      else
+        flash[:alert]+="#{document_model.document_file_name} not created,"
+      end
     end
+
     respond_to do |format|
       format.html {redirect_to folder_path(@parent_folder.id)}
       format.pdf do 
