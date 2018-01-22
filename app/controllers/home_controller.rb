@@ -62,7 +62,7 @@ class HomeController < ApplicationController
     
     prev_folder=Folder.where(parent_id: parent_folder.id,name: uploaded_root_folder_name)
     unless prev_folder.empty?
-      flash[:alert]="#{headers.first} folder already exist ,please change folder name."
+      flash[:alert]="#{uploaded_root_folder_name} folder already exist ,please change folder name."
       redirect_to folder_path(parent_folder.id)
       return
     end 
@@ -77,7 +77,7 @@ class HomeController < ApplicationController
 
         if ext.empty?
             unless header== new_folder.name
-              folder=Folder.create(user_id: current_user.id,name: header,parent_id:temp_prev_id)
+              folder=Folder.find_or_create_by(user_id: current_user.id,name: header,parent_id:temp_prev_id)
               temp_prev_id=folder.id
             end
         else
