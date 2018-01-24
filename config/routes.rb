@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   match 'appendfolder',to: 'folder#appendfolder',via: [:post]
   match 'appendfile',to: 'folder#appendfile',via: [:post]
   match 'uploadfolder', to: "home#createdocumentwithfolder", via: [:post]
+  match 'folderpassword',to: 'folder#folderpassword',via: [:post]
 
 
   root  "home#index"

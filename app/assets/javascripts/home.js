@@ -159,6 +159,13 @@ $(document).ready(function() {
 
 	});
 
+	$(document).on('show.bs.modal','#passwordFolder',function(event){
+		var button =$(event.relatedTarget)
+		var folderId=button.data('id')
+		$(this).find('.modal-body,.folder-password-form,#hiddenFolderId').val(folderId)
+
+	});
+
 
 
 

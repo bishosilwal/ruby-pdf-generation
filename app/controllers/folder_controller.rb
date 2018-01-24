@@ -1,5 +1,6 @@
 class FolderController < ApplicationController
   before_action :authenticate_user!
+  include BCrypt
   def index
   end
 
@@ -80,6 +81,17 @@ class FolderController < ApplicationController
     redirect_to folder_path(parent_folder.parent_id)
   end
 
+  def folderpassword
+    @folder=Folder.find(params[:folder_id])
+    @folder.password=Password.create(params[:password])
+
+    if @folder.save
+      flash[:notice]="Password for folder #{@folder.name} is created."
+    else
+      flash[:alert]="Password for folder #{@folder.name} is not created."
+    end
+    redirect_to folder_path(@folder.parent_id)
+  end
   def appendfile
     parent_folder=Folder.find(params[:parentFolderId])
     child_documents=UserDocument.where(folder_id: parent_folder.id)

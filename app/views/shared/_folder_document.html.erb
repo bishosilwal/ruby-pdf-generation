@@ -10,9 +10,25 @@
 						</div>
 						
 						<div class="card-body p-2 folder-icon" ondrop="dropFolder(event,<%=folder.id%>)" ondragover="allowFolderDrop(event)">
-							<%=link_to folder_path(folder) do%>	
-								<i class="fa fa-folder-o fa-4x folder-icon" draggable="true" ondragstart="dragFolder(event,<%=folder.id%>)"></i>
-							<% end %>
+							<div class="row">
+								<div class="col-3">
+									<%if folder.password.nil?%>
+										<i class="fa fa-unlock fa-lg"></i>
+									<%else%>
+										<i class="fa fa-lock fa-lg"></i>
+									<%end%>
+								</div>
+								<div class="col-6">
+									
+										<%=link_to folder_path(folder) do%>	
+										<i class="fa fa-folder-o fa-4x folder-icon" draggable="true" ondragstart="dragFolder(event,<%=folder.id%>)"></i>
+									<% end %>
+									
+									
+								</div>
+									
+							</div>
+								
 						</div>
 
 						<div class="card-footer p-1">
@@ -25,6 +41,11 @@
 							<span  data-id=<%=folder.id%> data-toggle="modal" data-target="#shareFolder" data-toggle="tooltip" data-placement="bottom" title="Share Folder">
 								<i class="fa fa-share fa-lg folder-icon"></i>
 							</span>
+
+							<span  data-id=<%=folder.id%> data-toggle="modal" data-target="#passwordFolder" data-toggle="tooltip" data-placement="bottom" title="Password Protect Folder">
+								<i class="fa fa-key fa-lg"></i>
+							</span>
+							
 							
 						</div>
 					</div>
@@ -88,8 +109,34 @@
 	<%=render "shared/viewpdf" %>
 	<%=render "shared/sharepdf" %>
 </div>
-		
-		
+
+	<div class="modal fade" id="passwordFolder" tabindex="-1" role="dialog" aria-labelledby="passwordFolderLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="passwordFolderLabel">Password Protect Folder</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+      		<div class="form-group folder-password-form w-5">
+						<%= form_tag(controller: "folder" ,action: "folderpassword", method: "post") do %>
+						  <%= label_tag(:password,"Folder Password:") %>
+							<%=password_field_tag :password,'',class: "form-control"%>
+						  <%=hidden_field_tag(:folder_id,nil,id: "hiddenFolderId")%>
+						  <%= submit_tag("submit",class: "btn btn-info m-1") %>
+						<% end %>
+	      	</div>
+      	</div>
+      
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+		</div>
+	</div>		
+
 	
 
 	
