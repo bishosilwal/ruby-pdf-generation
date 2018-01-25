@@ -74,7 +74,17 @@
 							
 						</div>
 						<div class="card-body p-2 ">
-							<i class="fa fa-file-pdf-o fa-4x" draggable="true" ondragstart="dragFile(event,<%=document.id%>)"></i>
+					
+							<%if File.extname(document.document_file_name)==".pdf"|| File.extname(document.document_file_name)==".doc"%>
+								<i class="fa fa-file-pdf-o fa-4x" draggable="true" ondragstart="dragFile(event,<%=document.id%>)"></i>
+							<%elsif File.extname(document.document_file_name)==".png" || File.extname(document.document_file_name)==".jpeg"%>
+									<i class="fa fa-file-image-o fa-4x" draggable="true" ondragstart="dragFile(event,<%=document.id%>)"></i>
+							<%elsif File.extname(document.document_file_name)==".txt"%>
+									<i class="fa fa-file-text-o fa-4x" draggable="true" ondragstart="dragFile(event,<%=document.id%>)"></i>
+							<%else%>
+									<i class="fa fa-file-pdf-o fa-4x" draggable="true" ondragstart="dragFile(event,<%=document.id%>)"></i>
+							<%end%>
+							
 						</div>
 						<div class="card-footer p-1">
 							<%if document.user==current_user%>

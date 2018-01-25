@@ -15,10 +15,20 @@ class HomeController < ApplicationController
     pdf=pdf_file(params[:id])
     ext=File.extname(pdf)
     if ext==".doc"
-      send_file(pdf, :filename => File.basename(pdf), :disposition => 'inline',:type=> "application/msword")  
+      type="application/msword"
+      #send_file(pdf, :filename => File.basename(pdf), :disposition => 'inline',:type=> "application/msword")  
     elsif ext==".pdf"
-      send_file(pdf, :filename => File.basename(pdf), :disposition => 'inline',:type => "application/pdf")  
+      type="application/pdf"
+      #send_file(pdf, :filename => File.basename(pdf), :disposition => 'inline',:type => "application/pdf")  
+    elsif ext==".txt"
+       type="text/plain"
+       #send_file(pdf, :filename => File.basename(pdf), :disposition => 'inline',:type => "text/plain") 
+    elsif ext==".png" 
+      type="image/png"
+    elsif ext==".jpeg"
+      type="image/jpeg"
     end
+    send_file(pdf, :filename => File.basename(pdf), :disposition => 'inline',:type => type) 
 
   end
 
