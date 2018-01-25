@@ -17,7 +17,7 @@
 												<i class="fa fa-lock fa-lg"></i>
 											<%end%>
 										</div>
-										<div class="col-6" onclick="checkPassword('<%=Folder.find(share_folder.folder_id).password.nil?%>','<%=share_folder.id%>');" >
+										<div class="col-6" ondblclick="checkPassword('<%=Folder.find(share_folder.folder_id).password.nil?%>','<%=share_folder.id%>');" >
 											<form action="/showfolder" method="post" id="passwordForm<%=share_folder.id%>">
 												<span  >
 														<i class="fa fa-folder-o fa-4x folder-icon" ></i>
