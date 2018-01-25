@@ -40,6 +40,23 @@ class FolderController < ApplicationController
     @documents=UserDocument.where(folder_id: @root_folder.id).page(params[:user_documents]).per(12)
   end
 
+  def openfolder
+
+    @root_folder=Folder.find(params[:folder_id])
+    if @root_folder.password
+      if Password.new(@root_folder.password)!=params[:password]
+
+        flash[:alert]="password is not match,please retype password"
+        redirect_to root_path
+      end
+
+   
+    end
+
+    @folders=Folder.where(parent_id: @root_folder.id)
+    @documents=UserDocument.where(folder_id: @root_folder.id).page(params[:user_documents]).per(12)
+
+  end
   
   def update
     folder=Folder.find(params[:id])

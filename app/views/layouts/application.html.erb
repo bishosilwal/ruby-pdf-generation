@@ -33,7 +33,12 @@
                       <%if @root_folder.parent_id==0%>
                         <%=link_to "Home",home_index_path,style: "color: black; text-decoration: none;"%>
                       <%else%>
-                        <%= link_to "Back",folder_path(@root_folder.parent_id),style: "color: black; text-decoration: none;"%>
+                    <!-- || FolderShare.where(folder_id: @root_folder.id).first.receipt_id==current_user
+                         -->
+                 
+                        <%if Folder.find(@root_folder.parent_id).user==current_user%>
+                          <%= link_to "Back",showfolder_path(folder_id: @root_folder.parent_id),method: :post,style: "color: black; text-decoration: none;"%>
+                        <%end%>
                       <%end%>
                         
                     </span>

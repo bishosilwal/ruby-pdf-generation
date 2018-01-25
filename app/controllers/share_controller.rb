@@ -10,7 +10,7 @@ class ShareController < ApplicationController
           receipt_id: id,
           doc_id: share_params[:doc_id]
           )
-      NotificationMailer.notify_user(current_user,id,share_params[:doc_id]).deliver_now
+      NotificationMailer.notify_user_with_document(current_user,id,share_params[:doc_id]).deliver_now
     end
     redirect_to home_index_path,notice: "Document share successfully"
   end
@@ -34,6 +34,9 @@ class ShareController < ApplicationController
           receipt_id: id,
           folder_id: share_params[:folder_id]
           )
+      password=Folder.find(share_params[:folder_id]).password
+       @form_auth_token = form_authenticity_token
+       NotificationMailer.notify_user_with_folder(current_user,id,share_params[:folder_id],password).deliver_now
     end
     redirect_to home_index_path,notice: "Folder share successfully"
   end

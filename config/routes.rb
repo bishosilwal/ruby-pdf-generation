@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :home
   resources :share, only: [:create,:destroy ,:show]
-  resources :folder, only: [:index,:create,:destroy,:show,:update]
+  resources :folder, only: [:index,:create,:destroy,:update,:show]
   match 'sharedbyme', to: 'share#sharedbyme', via: [:get]
 	match 'sharedwithme', to: 'share#sharedwithme', via: [:get]
 	match 'sharefolder',to: 'share#sharefolder',via: [:post]
@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   match 'appendfile',to: 'folder#appendfile',via: [:post]
   match 'uploadfolder', to: "home#createdocumentwithfolder", via: [:post]
   match 'folderpassword',to: 'folder#folderpassword',via: [:post]
+  match 'showfolder',to: 'folder#openfolder',via: [:post,:get]
 
 
   root  "home#index"

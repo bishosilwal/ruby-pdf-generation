@@ -6,28 +6,47 @@
 		<!-- file show  -->
 			<div class="col-12">
 				<div class="row">
-					<%@access_folders.each do |folder|%>
-						<%=link_to folder_path(folder.folder_id) do%>
+					<%@access_folders.each do |access_folder|%>
 							<div class="col-auto">		
 								<div class="card bg-light border-success text-center custom-card ">
 									<div class="card-header p-1 folder-icon">
-										<%=Folder.find(folder.folder_id).name%>
+										<%=Folder.find(access_folder.folder_id).name%>
 									</div>
 									<div class="card-body p-2 folder-icon">
-										<div>
-											<i class="fa fa-folder-o fa-4x"></i>
+										<div class="row">
+											<div class="col-3">
+												<%if Folder.find(access_folder.folder_id).password.nil?%>
+													<i class="fa fa-unlock fa-lg"></i>
+												<%else%>
+													<i class="fa fa-lock fa-lg"></i>
+												<%end%>
+											</div>
+											<div class="col-6" onclick="checkPassword('<%=Folder.find(access_folder.folder_id).password.nil?%>','<%=access_folder.id%>');" >
+												<form action="/showfolder" method="post" id="passwordForm<%=access_folder.id%>">
+													<span  >
+															<i class="fa fa-folder-o fa-4x folder-icon" ></i>
+													</span>
+													<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+													<input type="hidden" name="password" id="hiddenPassword<%=access_folder.id%>">
+													<input type="hidden" name="folder_id" value=<%=Folder.find(access_folder.folder_id).id%> >
+												</form>
+											
+											</div>
+										
 										</div>
-										<%=User.find(folder.owner_id).email%>
-									</div>
+										<%=User.find(access_folder.owner_id).email%>
+								</div>
+
+
 									<div class="card-footer p-1">
-										<%=link_to unsharefolder_path(folder_id: folder.id),method: :delete,data: {confirm: "Are you sure want to UnAccess Folder?"} do  %>
+										<%=link_to unsharefolder_path(folder_id: access_folder.id),method: :delete,data: {confirm: "Are you sure want to UnAccess Folder?"} do  %>
 											<i class="fa fa-chain-broken fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="UnAccess"></i>	
 										<%end%>
 										
 									</div>
 								</div>
 							</div>
-						<%end %>
+						
 					<%end%>
 
 					<%@access_documents.each do |document|%>

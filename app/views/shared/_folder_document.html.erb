@@ -18,13 +18,16 @@
 										<i class="fa fa-lock fa-lg"></i>
 									<%end%>
 								</div>
-								<div class="col-6">
-									
-										<%=link_to folder_path(folder) do%>	
-										<i class="fa fa-folder-o fa-4x folder-icon" draggable="true" ondragstart="dragFolder(event,<%=folder.id%>)"></i>
-									<% end %>
-									
-									
+								<div class="col-6" onclick="checkPassword('<%=folder.password.nil?%>','<%=folder.id%>');" >
+									<form action="/showfolder" method="post" id="passwordForm<%=folder.id%>">
+										<span  >
+												<i class="fa fa-folder-o fa-4x folder-icon" draggable="true" ondragstart="dragFolder(event,<%=folder.id%>)" ></i>
+										</span>
+										<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+										<input type="hidden" name="password" id="hiddenPassword<%=folder.id%>">
+										<input type="hidden" name="folder_id" value=<%=folder.id%> >
+									</form>
+								
 								</div>
 									
 							</div>

@@ -39,17 +39,7 @@ function dragFile(ev,fileId){
 
 //drag and drop file and folder end
 
-function insRow(){
-	var tableRow=  $("#user-document-table tbody");
-	var rowCount=tableRow.children().length;
-	var newFieldColumn= "<td><input type='text' name='title"+(rowCount+1)+"' class='form-control' placeholder='Enter title of content'/></td>";
-	var newAreaColumn= "<td><textarea cols='5' rows='3' name='content"+(rowCount+1)+"' class='form-control' placeholder='Enter content'/></td>";
-	var newRow= "<tr class='form-group'>"+newFieldColumn+newAreaColumn+"</tr>";
-	tableRow.append(newRow);
-	var totalRow= parseInt($("#rowcount").val());
-	$("#rowcount").val(totalRow+1);
-	
-}
+
 
 function saveDocument(){
 	var docName=$('#document_name').val().trim();
@@ -114,6 +104,20 @@ function changeFolder(id){
 }
 
 
+function checkPassword(isNil,id){
+	var password='';
+	if(isNil=="false"){
+		password=prompt("Enter folder password:");
+		if(password==""){
+			return;
+		}
+		$('#hiddenPassword'+id).val(password);
+	}
+	
+	$('#passwordForm'+id).trigger("submit");
+	
+}
+
 $(document).ready(function() {
 
 	$(document).on('show.bs.modal', '#viewPdf', function(event) {
@@ -165,8 +169,6 @@ $(document).ready(function() {
 		$(this).find('.modal-body,.folder-password-form,#hiddenFolderId').val(folderId)
 
 	});
-
-
 
 
 });

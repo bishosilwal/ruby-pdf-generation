@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi <%= @receipt.email %></h1>
+    <p>
+      	<%=@owner.email%> just share a folder to you.
+    </p>
+    <p>
+    	<h3>Please check link below to view the folder</h3>
+        <%=link_to "View Folder",showfolder_url(folder_id: @folderId)%>
+      
+      <%if @password%>
+        <h3>Password:</h3><%=@password%>
+      <%end%>
+    </p>
+  </body>
+</html>

@@ -3,24 +3,47 @@
 			<div class="col-12"><h3>Shared By Me</h3></div>
 			<%if @shared_folders.any?%>
 					<!-- file show  -->
-					<%@shared_folders.each do |folder|%>
-						<%=link_to folder_path(folder.folder_id) do%>
+					<%@shared_folders.each do |share_folder|%>
 							<div class="card bg-light border-success text-center custom-card m-2">
 								<div class="card-header p-1 folder-icon">
-									<%=Folder.find(folder.folder_id).name%>
+									<%=Folder.find(share_folder.folder_id).name%>
 								</div>
 								<div class="card-body p-2 folder-icon">
-									<i class="fa fa-folder-o fa-4x"></i><br>
-									<%=User.find(folder.receipt_id).email%>
+									<div class="row">
+										<div class="col-3">
+											<%if Folder.find(share_folder.folder_id).password.nil?%>
+												<i class="fa fa-unlock fa-lg"></i>
+											<%else%>
+												<i class="fa fa-lock fa-lg"></i>
+											<%end%>
+										</div>
+										<div class="col-6" onclick="checkPassword('<%=Folder.find(share_folder.folder_id).password.nil?%>','<%=share_folder.id%>');" >
+											<form action="/showfolder" method="post" id="passwordForm<%=share_folder.id%>">
+												<span  >
+														<i class="fa fa-folder-o fa-4x folder-icon" ></i>
+												</span>
+												<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+												<input type="hidden" name="password" id="hiddenPassword<%=share_folder.id%>">
+												<input type="hidden" name="folder_id" value=<%=Folder.find(share_folder.folder_id).id%> >
+											</form>
+										
+										</div>
+											
+									</div>
+
+
+									<%=User.find(share_folder.receipt_id).email%>
 								</div>
 								<div class="card-footer p-1">
-									<%=link_to unsharefolder_path(folder_id: folder.id),method: :delete,data: {confirm: "Are you sure want to Unshare Document?"} do  %>
+									<%=link_to unsharefolder_path(folder_id: share_folder.id),method: :delete,data: {confirm: "Are you sure want to Unshare Document?"} do  %>
 										<i class="fa fa-chain-broken fa-lg" style="color: black;" data-toggle="tooltip" data-placement="bottom" title="Unshare"></i>	
 									<%end%>
 
 								</div>
 							</div>
-						<%end%>
+						
+
+
 					<%end%>
 				<%end%>
 						<!-- file show end -->
