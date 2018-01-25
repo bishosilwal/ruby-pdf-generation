@@ -44,10 +44,12 @@
 							<span  data-id=<%=folder.id%> data-toggle="modal" data-target="#shareFolder" data-toggle="tooltip" data-placement="bottom" title="Share Folder">
 								<i class="fa fa-share fa-lg folder-icon"></i>
 							</span>
-
-							<span  data-id=<%=folder.id%> data-toggle="modal" data-target="#passwordFolder" data-toggle="tooltip" data-placement="bottom" title="Password Protect Folder">
-								<i class="fa fa-key fa-lg"></i>
-							</span>
+							<%if folder.user==current_user%>
+								<span  data-id=<%=folder.id%> data-toggle="modal" data-target="#passwordFolder" data-toggle="tooltip" data-placement="bottom" title="Password Protect Folder">
+									<i class="fa fa-key fa-lg"></i>
+								</span>
+							<%end%>
+								
 							
 							
 						</div>
