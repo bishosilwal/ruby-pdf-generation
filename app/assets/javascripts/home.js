@@ -117,6 +117,37 @@ function checkPassword(isNil,id){
 	$('#passwordForm'+id).trigger("submit");
 	
 }
+var selectedFolder=[];
+function folderClick(element,folderId){
+	if(selectedFolder.includes(folderId)){
+		var index=selectedFolder.indexOf(folderId);
+		if (index > -1) {
+    selectedFolder.splice(index, 1);
+		}
+		element.style.backgroundColor= null;
+	}else{
+		selectedFolder.push(folderId);
+		element.style.backgroundColor= "#708aef";
+	}
+}
+function handleRightClick(element,event){
+	event.preventDefault();
+	console.log(event.pageX + "," + event.pageY);
+  $("#rightclick").css("left",event.pageX);
+  $("#rightclick").css("top",event.pageY);
+  $("#rightclick").fadeIn(200,startFocusOut()); 
+}
+
+function startFocusOut(){
+  $(document).on("click",function(){
+  $("#rightclick").hide();        
+  $(document).off("click");
+  });
+}
+function download(){
+	window.location="http://localhost:3000/folderdownload.zip?folders="+selectedFolder
+	
+}
 
 $(document).ready(function() {
 

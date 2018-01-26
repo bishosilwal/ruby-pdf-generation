@@ -9,8 +9,8 @@
 							<input type="text" onchange="changeFolder(<%= folder.id %>)" id="folderName<%=folder.id%>" class="" style="border: none;background-color:rgba(0, 0, 0, 0.03);" value="<%=folder.name%>" >
 						</div>
 						
-						<div class="card-body p-2 folder-icon" ondrop="dropFolder(event,<%=folder.id%>)" ondragover="allowFolderDrop(event)">
-							<div class="row">
+						<div class="card-body p-2 folder-icon" ondrop="dropFolder(event,<%=folder.id%>)" ondragover="allowFolderDrop(event)" onclick="folderClick(this,<%=folder.id%>)" oncontextmenu="handleRightClick(this,event)" >
+							<div class="row" >
 								<div class="col-3">
 									<%if folder.password.nil?%>
 										<i class="fa fa-unlock fa-lg"></i>
@@ -152,6 +152,9 @@
 		</div>
 	</div>		
 
-	
-
-	
+	<div id='rightclick'>
+    <ul id='right-click-items'>
+      <li onclick="download()" >Download</li>
+      <li>Delete</li>  
+    </ul>
+  </div>

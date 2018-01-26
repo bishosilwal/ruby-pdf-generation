@@ -41,6 +41,8 @@ gem "paperclip", "~> 5.0.0"
 gem "wysiwyg-rails"
 gem "better_errors"
 gem "binding_of_caller"
+gem 'rubyzip', '>= 1.0.0' # will load new rubyzip version
+gem 'zip-zip' # will load compatibility for old rubyzip API.
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

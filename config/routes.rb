@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   match 'uploadfolder', to: "home#createdocumentwithfolder", via: [:post]
   match 'folderpassword',to: 'folder#folderpassword',via: [:post]
   match 'showfolder',to: 'folder#openfolder',via: [:post,:get]
+  match 'folderdownload',to: "folder#folderdownload",via:[:post,:get]
 
 
   root  "home#index"

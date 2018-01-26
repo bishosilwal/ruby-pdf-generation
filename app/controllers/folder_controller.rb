@@ -129,6 +129,41 @@ class FolderController < ApplicationController
     redirect_to folder_path(parent_folder.parent_id)
   end
 
+  def folderdownload
+
+    folders=params[:folders].split(',')
+    files=[]
+    folders.each do |folder|
+      documents=UserDocument.all.where(folder_id: folder.to_i)
+      documents.each do |document|
+        files.push("#{Rails.root}/public/system/documents/"+document.id.to_s+"/original/"+document.document_file_name )
+      end
+      child_folders=Folder.where(parent_id: folder)
+      child_folders.each do |child_folder|
+        documents=UserDocument.all.where(folder_id: child_folder)
+        documents.each do |document|
+          files.push("#{Rails.root}/public/system/documents/"+document.id.to_s+"/original/"+document.document_file_name )
+        end
+      end
+      
+    end
+
+    zip_stream = Zip::ZipOutputStream.write_buffer do |zip|
+      files.each do |f|
+        zip.put_next_entry File.basename(f)
+        zip<< File.binread(f)
+      end
+    end
+
+    zip_stream.rewind
+    respond_to do |format|
+      format.zip do
+        send_data zip_stream.read, filename: "zip_file.zip"
+      end
+    end
+    
+  end
+
   def folder_params
     params.permit(:folder_name,:parent_folder,:utf8, :authenticity_token, :commit, :method)
   end
