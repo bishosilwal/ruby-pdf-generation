@@ -7,7 +7,7 @@ class NotificationMailer < ApplicationMailer
 		mail(to: @userReceipt.email ,
 				subject: "#{@userOwner.email} share document with you ",
 				template_path: "notification_mailer",
-				template_name: "notify_user")
+				template_name: "notify_user_with_document")
 
 	end
 
