@@ -139,12 +139,15 @@ class FolderController < ApplicationController
         files.push("#{Rails.root}/public/system/documents/"+document.id.to_s+"/original/"+document.document_file_name )
       end
       child_folders=Folder.where(parent_id: folder)
-      child_folders.each do |child_folder|
-        documents=UserDocument.all.where(folder_id: child_folder)
-        documents.each do |document|
-          files.push("#{Rails.root}/public/system/documents/"+document.id.to_s+"/original/"+document.document_file_name )
+      unless child_folders.empty? do 
+        child_folders.each do |child_folder|
+          documents=UserDocument.all.where(folder_id: child_folder)
+          documents.each do |document|
+            files.push("#{Rails.root}/public/system/documents/"+document.id.to_s+"/original/"+document.document_file_name )
+          end
         end
       end
+      
       
     end
 
