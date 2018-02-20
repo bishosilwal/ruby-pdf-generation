@@ -1,6 +1,7 @@
 class FolderController < ApplicationController
   before_action :authenticate_user!
   include BCrypt
+
   def index
   end
 
@@ -41,21 +42,15 @@ class FolderController < ApplicationController
   end
 
   def openfolder
-
     @root_folder=Folder.find(params[:folder_id])
     if @root_folder.password
       if Password.new(@root_folder.password)!=params[:password]
-
         flash[:alert]="password is not match,please retype password"
         redirect_to root_path
       end
-
-   
     end
-
     @folders=Folder.where(parent_id: @root_folder.id)
     @documents=UserDocument.where(folder_id: @root_folder.id).page(params[:user_documents]).per(12)
-
   end
   
   def update
@@ -63,7 +58,6 @@ class FolderController < ApplicationController
     prev_folder=Folder.find_by(name: params[:name])
     unless prev_folder.nil?
       if prev_folder.parent_id==folder.parent_id
-
         flash[:alert]="#{params[:name]} folder already exist,Please choose different folder name.."
         redirect_to folder_path(folder.parent_id)
         return
@@ -109,6 +103,7 @@ class FolderController < ApplicationController
     end
     redirect_to folder_path(@folder.parent_id)
   end
+
   def appendfile
     parent_folder=Folder.find(params[:parentFolderId])
     child_documents=UserDocument.where(folder_id: parent_folder.id)
@@ -130,7 +125,6 @@ class FolderController < ApplicationController
   end
 
   def folderdownload
-
     folders=params[:folders].split(',')
     files=[]
     folders.each do |folder|
@@ -147,29 +141,25 @@ class FolderController < ApplicationController
           end
         end
       end
-      
-      
     end
-
     zip_stream = Zip::ZipOutputStream.write_buffer do |zip|
       files.each do |f|
         zip.put_next_entry File.basename(f)
         zip<< File.binread(f)
       end
     end
-
     zip_stream.rewind
     respond_to do |format|
       format.zip do
         send_data zip_stream.read, filename: "zip_file.zip"
       end
     end
-    
   end
-
+  end
+  
+  private
   def folder_params
     params.permit(:folder_name,:parent_folder,:utf8, :authenticity_token, :commit, :method)
   end
-
 
 end
