@@ -1,7 +1,8 @@
 # README
-This is a simple app in ruby on rails .It take user input like title and content and generate pdf version of supplied data.User can also view their all document pdf version and can perform different operation(ex.view and delete pdf document).
-Features:-
- 1.User can create pdf version of supplied content.
- 2.Document can be shared among different user.
- 3.View and Manage document.
- 4.Notify user through mail  when someone share a document 
+This app was built with ruby on rails as my first intern project.It was some feature like drive so ## Mini-Drive ## will be appropriate name. It as following features:
+* Multiple user 
+* Create pdf document or upload different files(like: png, jpeg ,pdf, mswords)
+* Multiple folder and document support
+* Share folder and file with multiple users.
+
+( https://raw.githubusercontent.com/bishosilwal/ruby-pdf-generation/master/Screenshot%20from%202018-02-25%2017-20-09.png )
